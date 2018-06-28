@@ -7,5 +7,12 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <form action="/api/restaurants" method="post">
+      <input type="text" name="name">
+      <input type="text" name="location">
+      <input type="text" name="email">
+      <input type="text" name="password">
+      <button>Hello</button>
+    </form>
   </body>
 </html>
