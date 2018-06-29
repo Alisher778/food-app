@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import Restaurants from './components/Restaurnats.js';
 import './App.css';
-import $ from 'jquery';
 import axios from 'axios';
 
 class App extends Component {
@@ -8,20 +8,20 @@ class App extends Component {
     super();
     this.state = {name: '', password: '', email: '', phone: '', data: [] }
   }
-  
+
   componentWillMount(e) {
     fetch('/api/restaurants/all')
       .then(res=> res.json())
       .then(data => this.setState({data}))
-      .catch(err => console.log(err))
-    
+      .catch(err => console.error(err))
+
   }
 
   onSubmit(e) {
     e.preventDefault();
     axios.post('/api/restaurants', (this.state))
     .then((response) => {
-      this.setState({data: response})
+      this.setState({data: [...this.state.data, response.data]})
     })
     .catch((error) => {
       console.log(error);
@@ -32,7 +32,7 @@ class App extends Component {
   onInputChange(e) {
     const target = e.target.name;
     const value = e.target.value;
-  
+
     return this.setState({[target]: value});
   }
 
@@ -48,9 +48,7 @@ class App extends Component {
             <button>Hello</button>
           </form>
           </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+          <Restaurants data={this.state.data} />
       </div>
     );
   }

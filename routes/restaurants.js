@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Restaurants = require('../models/restaurants');
+const Restaurants = require('../models/restaurants');
 
 /* GET users listing. */
 router.get('/all', (req, res, next) => {
@@ -10,8 +10,6 @@ router.get('/all', (req, res, next) => {
 });
 
 router.post('/', (req, res) => {
-  console.log(req.body)
-  console.log(req.body.name)
   Restaurants.create({
     name: req.body.name,
     info: req.body.info,
@@ -25,7 +23,7 @@ router.post('/', (req, res) => {
     console.log(data)
     res.send(data)
   }).catch(err => res.send(err))
-})
+});
 
 router.get('/delete', (req,res) => {
   Restaurants.remove()
@@ -33,6 +31,6 @@ router.get('/delete', (req,res) => {
       res.send(success)
     })
     .catch(err => res.send(err))
-})
+});
 
 module.exports = router;

@@ -1,11 +1,11 @@
 const mongoose =  require('mongoose');
 const Schema = mongoose.Schema;
 const restaurantSchema = new Schema({
-  name: {type: String},
+  name: {type: String, unique: true},
   info: String,
   location: String,
   type: String,
-  email: {type: String},
+  email: {type: String, unique: true},
   phone: String,
   password: String,
   admin: [],
