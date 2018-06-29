@@ -25,6 +25,7 @@ router.post('/', (req, res) => {
   }).catch(err => res.send(err))
 });
 
+
 router.get('/delete', (req,res) => {
   Restaurants.remove()
     .then(success => {
