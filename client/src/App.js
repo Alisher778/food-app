@@ -38,12 +38,25 @@ class App extends Component {
       .catch(error => console.log(error));
   }
 
+  onUpdate(e) {
+    e.preventDefault();
+    axios
+      .post(`/api/restaurants/edit/${e.target.id}`, this.state)
+      .then(data => {
+        this.setState({ data: data.data });
+      })
+      .catch(error => console.log(error));
+    return false;
+  }
+
   onInputChange(e) {
     const target = e.target.name;
     const value = e.target.value;
 
     return this.setState({ [target]: value });
   }
+
+  showEdite() {}
 
   render() {
     return (
@@ -87,6 +100,39 @@ class App extends Component {
                 <button id={item._id} onClick={this.onDelete.bind(this)}>
                   Remove
                 </button>
+                <button onClick={this.showEdite.bind(this)}>
+                  Edit
+                </button>
+                  <form
+                    id={item._id}
+                    onSubmit={this.onUpdate.bind(this)}
+                  >
+                    <input
+                      type="text"
+                      name="name"
+                      onChange={this.onInputChange.bind(this)}
+                      defaultValue={item.name}
+                    />
+                    <input
+                      type="text"
+                      name="location"
+                      onChange={this.onInputChange.bind(this)}
+                      defaultValue={item.location}
+                    />
+                    <input
+                      type="text"
+                      name="email"
+                      onChange={this.onInputChange.bind(this)}
+                      defaultValue={item.email}
+                    />
+                    <input
+                      type="text"
+                      name="password"
+                      onChange={this.onInputChange.bind(this)}
+                      defaultValue={item.password}
+                    />
+                      <button>Update</button>
+                </form>
               </li>
             );
           })}
