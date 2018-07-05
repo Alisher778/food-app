@@ -8,7 +8,7 @@ class Restaurants extends Component {
         <h1>Restaurants</h1>
         <ul>
           {this.props.data.map((item ,i) =>{
-            return <li key={i}>{item.name}</li>
+            return <li key={i}>{item.name}, {item.email}</li>
           })}
         </ul>
       </div>

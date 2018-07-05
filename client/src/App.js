@@ -1,54 +1,97 @@
-import React, { Component } from 'react';
-import Restaurants from './components/Restaurnats.js';
-import './App.css';
-import axios from 'axios';
+import React, { Component } from "react";
+import Restaurants from "./components/Restaurnats.js";
+import "./App.css";
+import axios from "axios";
 
 class App extends Component {
   constructor() {
     super();
-    this.state = {name: '', password: '', email: '', phone: '', data: [] }
+    this.state = { name: "", password: "", email: "", phone: "", data: [] };
   }
 
-  componentWillMount(e) {
-    fetch('/api/restaurants/all')
-      .then(res=> res.json())
-      .then(data => this.setState({data}))
-      .catch(err => console.error(err))
-
+  componentDidMount(e) {
+    fetch("/api/restaurants/all")
+      .then(res => res.json())
+      .then(data => this.setState({ data }))
+      .catch(err => console.error(err.message));
   }
 
   onSubmit(e) {
     e.preventDefault();
-    axios.post('/api/restaurants', (this.state))
-    .then((response) => {
-      this.setState({data: [...this.state.data, response.data]})
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    axios
+      .post("/api/restaurants", this.state)
+      .then(response => {
+        this.setState({ data: [...this.state.data, response.data] });
+      })
+      .catch(error => {
+        console.log(error);
+      });
     return false;
+  }
+
+  onDelete(e) {
+    axios
+      .get(`/api/restaurants/delete/${e.target.id}`)
+      .then(data => {
+        this.setState({ data: data.data });
+      })
+      .catch(error => console.log(error));
   }
 
   onInputChange(e) {
     const target = e.target.name;
     const value = e.target.value;
 
-    return this.setState({[target]: value});
+    return this.setState({ [target]: value });
   }
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <form action="/api/restaurants" id="my-form" method="post" onSubmit={this.onSubmit.bind(this)}>
-            <input type="text" name="name" onChange={this.onInputChange.bind(this)}/>
-            <input type="text" name="location" onChange={this.onInputChange.bind(this)}/>
-            <input type="text" name="email" onChange={this.onInputChange.bind(this)}/>
-            <input type="text" name="password" onChange={this.onInputChange.bind(this)}/>
+          <form
+            action="/api/restaurants"
+            id="my-form"
+            method="post"
+            onSubmit={this.onSubmit.bind(this)}
+          >
+            <input
+              type="text"
+              name="name"
+              onChange={this.onInputChange.bind(this)}
+            />
+            <input
+              type="text"
+              name="location"
+              onChange={this.onInputChange.bind(this)}
+            />
+            <input
+              type="text"
+              name="email"
+              onChange={this.onInputChange.bind(this)}
+            />
+            <input
+              type="text"
+              name="password"
+              onChange={this.onInputChange.bind(this)}
+            />
             <button>Hello</button>
           </form>
-          </header>
-          <Restaurants data={this.state.data} />
+        </header>
+        <h1>Restaurants</h1>
+        <ul>
+          {this.state.data.map((item, i) => {
+            return (
+              <li key={i}>
+                {item.name}{" "}
+                <button id={item._id} onClick={this.onDelete.bind(this)}>
+                  Remove
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+        <form />
       </div>
     );
   }
