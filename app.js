@@ -10,7 +10,7 @@ var compression = require('compression')
 var mongoose = require('mongoose');
 
 //Set up default mongoose connection
-var mongoDB = 'mongodb://localhost/foodapp';
+var mongoDB = process.env.MONGODB_URI || 'mongodb://localhost/foodapp';
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 

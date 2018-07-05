@@ -27,7 +27,7 @@ router.post("/", (req, res) => {
 
 // Update a restaurant instance by id
 router.post("/edit/:id", (req, res) => {
-  Restaurants.findByIdAndUpdate(req.params.id, {$set: req.body})
+  Restaurants.findByIdAndUpdate(req.params.id, {$set: req.body, updatedAt: Date.now()})
     .then(() => {
       Restaurants.find()
         .then(data => res.json(data))
