@@ -10,13 +10,14 @@ var compression = require('compression')
 var mongoose = require('mongoose');
 
 //Set up default mongoose connection
-var mongoDB = process.env.MONGODB_URI || 'mongodb://localhost/foodapp';
+var mongoDB = 'mongodb://localhost/foodapp';
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 
 
 // =============  Routes ================
 var restaurants = require('./routes/restaurants');
+var admin = require('./routes/admin');
 
 var app = express();
 
@@ -35,6 +36,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/restaurants', restaurants);
+app.use('/api/admins', admin);
+
+
 app.get('/', (req, res) => {
   res.send('This is Food App API')
 })
