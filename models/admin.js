@@ -1,10 +1,12 @@
 const mongoose =  require('mongoose');
 const Schema = mongoose.Schema;
 const adminSchema = new Schema({
-  fullName: String,
+  name: String,
   email: {type: String, unique: true},
   phone: String,
-  password: String,
+  avatar: String,
+  dob: String,
+  gender: String,
   createdAt: {type: Date, default: Date.now()},
   updatedAt: {type: Date, default: Date.now()}
 });

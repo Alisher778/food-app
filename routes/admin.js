@@ -4,32 +4,24 @@ const Admin = require("../models/admin");
 
 /* GET Restaurant listing. */
 router.get("/", (req, res, next) => {
-  Restaurants.find()
+  Admin.find()
     .then(data => res.send(data))
     .catch(err => res.send(err.message));
 });
 
 // Create Restaurant instance
 router.post("/", (req, res) => {
-  Restaurants.create({
-    name: req.body.name,
-    info: req.body.info,
-    location: req.body.location,
-    type: req.body.type,
-    email: req.body.email,
-    phone: req.body.phone,
-    password: req.body.password,
-    admin: [req.body.admin]
-  })
+  const { name, dob, phone, gender, email, avatar } = req.body;
+  Admin.create({ name, dob, phone, gender, email, avatar})
     .then(data => res.send(data))
     .catch(err => res.send(err.message));
 });
 
 // Update a restaurant instance by id
 router.post("/edit/:id", (req, res) => {
-  Restaurants.findByIdAndUpdate(req.params.id, {$set: req.body, updatedAt: Date.now()})
+  Admin.findByIdAndUpdate(req.params.id, {$set: req.body, updatedAt: Date.now()})
     .then(() => {
-      Restaurants.find()
+      Admin.find()
         .then(data => res.json(data))
         .catch(err => res.json(err.message));
     })
@@ -39,9 +31,9 @@ router.post("/edit/:id", (req, res) => {
 
 // Delete a restaurant instance by id
 router.get("/delete/:id", (req, res) => {
-  Restaurants.findByIdAndRemove(req.params.id)
+  Admin.findByIdAndRemove(req.params.id)
     .then(() => {
-      Restaurants.find()
+      Admin.find()
         .then(data => res.json(data))
         .catch(err => res.json(err.message));
     })
@@ -49,9 +41,9 @@ router.get("/delete/:id", (req, res) => {
 });
 
 
-// !!!!!!!!!!!!!!  ====>>>>Delete All Restaurants for Test Perposes only
+// !!!!!!!!!!!!!!  ====>>>>Delete All Admin for Test Perposes only
 router.get("/delete", (req, res) => {
-  Restaurants.remove()
+  Admin.remove()
     .then(success => res.send(success))
     .catch(err => res.send(err.message));
 });
