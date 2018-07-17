@@ -11,6 +11,7 @@ router.get("/all", (req, res, next) => {
 
 // Create Restaurant instance
 router.post("/", (req, res) => {
+  console.log("hey====",req.body)
   Restaurants.create({
     name: req.body.name,
     info: req.body.info,
@@ -18,6 +19,11 @@ router.post("/", (req, res) => {
     type: req.body.type,
     email: req.body.email,
     phone: req.body.phone,
+    admin_name: req.body.admin_name,
+    admin_email: req.body.admin_email,
+    admin_avatar: req.body.admin_avatar,
+    admin_phone: req.body.admin_phone,
+    admin_lang: req.body.admin_lang,
     password: req.body.password,
     admin: [req.body.admin]
   })

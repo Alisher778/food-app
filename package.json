@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "concurrently \"node app.js\" \"cd client && npm start\""
+    "start": "concurrently \"nodemon app.js\" \"cd client && npm start\""
   },
   "dependencies": {
     "body-parser": "~1.15.2",
@@ -13,9 +13,11 @@
     "debug": "~2.2.0",
     "ejs": "~2.5.2",
     "express": "~4.14.0",
+    "express-session": "^1.15.6",
     "helmet": "^3.12.1",
     "mongoose": "^5.1.7",
     "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "session": "^0.1.0"
   }
 }
