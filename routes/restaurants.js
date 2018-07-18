@@ -2,6 +2,28 @@ var express = require("express");
 var router = express.Router();
 const Restaurants = require("../models/restaurants");
 
+router.use(require('express-session')({
+  secret: "^*&(**)HBN(UOP@PJ@)P_PJ@ P@{POPIIYFUGUP{IP@UHEB BND@ &*(*)(@{)IEU&*@^&%^$#%ED@FUYIHER",
+  resave: false,
+  saveUnitialized: false
+}))
+
+router.use(function(req, res, next){
+  res.locals.msg = "";
+  res.locals.userId = req.session.userId;
+  res.locals.userType = req.session.userType;
+  next();
+});
+
+
+function isLoggedIn(req, res, next){
+  if(req.session.userId){
+    return next();
+  }
+  res.json({msg: "You must be logged in"})
+  console.log(req.session.userId)
+}
+
 /* GET Restaurant listing. */
 router.get("/all", (req, res, next) => {
   Restaurants.find()
@@ -9,30 +31,42 @@ router.get("/all", (req, res, next) => {
     .catch(err => res.send(err.message));
 });
 
+/* GET Current User & type of the user. */
+router.get("/current_user", (req, res, next) => {
+  console.log(req.session.userId);
+  console.log(res.locals.msg);
+  res.json(req.session.userId)
+});
+
 // Create Restaurant instance
 router.post("/", (req, res) => {
-  console.log("hey====",req.body)
   Restaurants.create({
     name: req.body.name,
     info: req.body.info,
     location: req.body.location,
     type: req.body.type,
     email: req.body.email,
+    password: req.body.password,
     phone: req.body.phone,
     admin_name: req.body.admin_name,
     admin_email: req.body.admin_email,
     admin_avatar: req.body.admin_avatar,
     admin_phone: req.body.admin_phone,
     admin_lang: req.body.admin_lang,
-    password: req.body.password,
-    admin: [req.body.admin]
   })
-    .then(data => res.send(data))
+    .then(data => {
+      console.log('be',data._id);
+      req.session.userId = data.name;
+      req.session.userType = 'admin';
+      req.locals.msg = data.name;
+      res.send(data)
+    })
     .catch(err => res.send(err.message));
 });
 
 // Update a restaurant instance by id
 router.post("/edit/:id", (req, res) => {
+  console.log(req.body)
   Restaurants.findByIdAndUpdate(req.params.id, {$set: req.body, updatedAt: Date.now()})
     .then(() => {
       Restaurants.find()

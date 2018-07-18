@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Restaurants from "./components/Restaurnats.js";
+// import Restaurants from "./components/Restaurnats.js";
 import "./App.css";
 import axios from "axios";
 
@@ -29,6 +29,8 @@ class App extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+    const formData = new FormData(e.target);
+    console.log(formData);
     axios
       .post("/api/restaurants", this.state)
       .then(response => {
@@ -42,7 +44,7 @@ class App extends Component {
 
   onDelete(e) {
     axios
-      .get(`/api/restaurant/delete/${e.target.id}`)
+      .get(`/api/restaurants/delete/${e.target.id}`)
       .then(data => {
         this.setState({ data: data.data });
       })
@@ -70,6 +72,7 @@ class App extends Component {
   showEdite() {}
 
   render() {
+    console.log(this.state)
     return (
       <div className="App">
         <header className="App-header">
@@ -78,53 +81,9 @@ class App extends Component {
             id="my-form"
             method="post"
             onSubmit={this.onSubmit.bind(this)}
-          >
-            <input
-              type="text"
-              name="name"
-              onChange={this.onInputChange.bind(this)}
-            />
-            <input
-              type="text"
-              name="location"
-              onChange={this.onInputChange.bind(this)}
-            />
-            <input
-              type="text"
-              name="email"
-              onChange={this.onInputChange.bind(this)}
-            />
-            <input
-              type="text"
-              name="password"
-              onChange={this.onInputChange.bind(this)}
-            />
-            <h3>Admin Info</h3>
-            <input
-              type="text"
-              name="admin_name"
-              onChange={this.onInputChange.bind(this)}
-            />
-            <input
-              type="email"
-              name="admin_email"
-              onChange={this.onInputChange.bind(this)}
-            />
-            <input
-              type="text"
-              name="admin_phone"
-              onChange={this.onInputChange.bind(this)}
-            />
-            <input
-              type="text"
-              name="admin_lang"
-              onChange={this.onInputChange.bind(this)}
-            />
-            <input
-              type="text"
-              name="admin_avatar"
-              onChange={this.onInputChange.bind(this)}
-            />
+          > 
+            <input type="text" name="name" onChange={this.onInputChange.bind(this)}/>
+            <input type="text" name="name" onChange={this.onInputChange.bind(this)}/>
             <button>Hello</button>
           </form>
         </header>
@@ -136,9 +95,6 @@ class App extends Component {
                 {item.name}{" "}
                 <button id={item._id} onClick={this.onDelete.bind(this)}>
                   Remove
-                </button>
-                <button onClick={this.showEdite.bind(this)}>
-                  Edit
                 </button>
                   <form
                     id={item._id}
@@ -152,52 +108,9 @@ class App extends Component {
                     />
                     <input
                       type="text"
-                      name="location"
-                      onChange={this.onInputChange.bind(this)}
-                      defaultValue={item.location}
-                    />
-                    <input
-                      type="text"
                       name="email"
                       onChange={this.onInputChange.bind(this)}
                       defaultValue={item.email}
-                    />
-                    <input
-                      type="text"
-                      name="password"
-                      onChange={this.onInputChange.bind(this)}
-                      defaultValue={item.password}
-                    />
-                    <h3>Admin Info</h3>
-                    <input
-                      type="text"
-                      name="admin_name"
-                      onChange={this.onInputChange.bind(this)}
-                      defaultValue={item.admin_name}
-                    />
-                    <input
-                      type="email"
-                      name="admin_email"
-                      onChange={this.onInputChange.bind(this)}
-                      defaultValue={item.admin_email}
-                    />
-                    <input
-                      type="text"
-                      name="admin_phone"
-                      onChange={this.onInputChange.bind(this)}
-                      defaultValue={item.admin_phone}
-                    />
-                    <input
-                      type="text"
-                      name="admin_lang"
-                      onChange={this.onInputChange.bind(this)}
-                      defaultValue={item.admin_lang}
-                    />
-                    <input
-                      type="text"
-                      name="admin_avatar"
-                      onChange={this.onInputChange.bind(this)}
-                      defaultValue={item.admin_avatar}
                     />
                       <button>Update</button>
                 </form>
@@ -205,7 +118,6 @@ class App extends Component {
             );
           })}
         </ul>
-        <form />
       </div>
     );
   }
