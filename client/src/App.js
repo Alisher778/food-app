@@ -42,7 +42,7 @@ class App extends Component {
 
   onDelete(e) {
     axios
-      .get(`/api/restaurant/delete/${e.target.id}`)
+      .get(`/api/restaurants/delete/${e.target.id}`)
       .then(data => {
         this.setState({ data: data.data });
       })
@@ -51,8 +51,14 @@ class App extends Component {
 
   onUpdate(e) {
     e.preventDefault();
+    const form = e.target.childNodes;
+    let data = {};
+
+    form.forEach(item => {
+      Object.assign(data, {[item.name]: item.value});
+    });
     axios
-      .post(`/api/restaurants/edit/${e.target.id}`, this.state)
+      .post(`/api/restaurants/edit/${e.target.id}`, data)
       .then(data => {
         this.setState({ data: data.data });
       })
