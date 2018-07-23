@@ -1,0 +1,40 @@
+@mixin formInputs {
+	width: 100%;
+	display: block;
+	margin-bottom: 20px;
+	height: 40px;
+	font-size: 20px;
+	border-radius: 7px;
+	padding: 3px 10px;
+	border: 2px solid rgb(12, 67, 131);
+	outline: none;
+}
+#sign-in {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	min-width: 100vw;
+	min-height: 100vh;
+	background-color: rgba(7, 77, 89, 0.4);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+
+	form {
+		width: 90%;
+		max-width: 400px;
+		text-align: center;
+
+		input {
+			@include formInputs;
+		}
+		a {
+			@include formInputs;
+			background-color: rgb(12, 67, 132);
+			color: #fff;
+		}
+	}
+}

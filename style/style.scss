@@ -1,5 +1,9 @@
+@import "_auth";
 @import "_header";
 
+* {
+	box-sizing: border-box;
+}
 body,
 html {
 	padding: 0;
