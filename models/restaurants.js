@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const restaurantSchema = new Schema({
-	name: { type: String, unique: true },
+	name: { type: String, required: [true, "%Name is required"] },
 	info: String,
 	location: String,
 	type: { type: String, default: "Restaurant" },
-	email: { type: String, unique: true },
+	email: { type: String, required: [true, "%Email is required"] },
 	phone: String,
 	password: String,
 	admin_name: String,

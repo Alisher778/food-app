@@ -5,6 +5,11 @@ header {
 	padding: 0;
 	background-color: rgb(74, 81, 150);
 	font-family: "Raleway", sans-serif;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100vw;
 
 	nav {
 		max-width: 1200px;

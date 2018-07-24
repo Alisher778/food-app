@@ -13,12 +13,17 @@ html {
 }
 
 section {
-	min-height: calc(100vh - 60px);
+	min-height: 100vh;
 	width: 100vw;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	justify-content: center;
+	// justify-content: center;
+
+	#error-msg {
+		margin-bottom: 20px;
+		font-size: 16px;
+	}
 }
 
 #error-page {

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class SignIn extends Component {
 	constructor() {
 		super();
+		this.state = { message: "Hello" };
 	}
 
 	onSubmit(e) {
@@ -11,16 +13,42 @@ class SignIn extends Component {
 		let data = {};
 
 		form.forEach(item => Object.assign(data, { [item.name]: item.value }));
-		console.log(data);
+		axios
+			.post("/api/restaurants", data)
+			.then(res => {
+				console.log(res.data);
+				this.setState({ message: res.data.msg });
+			})
+			.catch(err => this.setState({ message: err.data.msg }));
+	}
+
+	msgFilter() {
+		const msg = this.state.message.split(",");
+		console.log(msg);
+		msg.forEach((str, i) => {
+			return <li key={i}>{str.slice(str.indexOf("%") + 1)}</li>;
+		});
 	}
 	render() {
 		return (
-			<div id="sign-in">
+			<section id="sign-in-page">
+				<div id="error-msg">
+					<ul>{this.msgFilter()}</ul>
+				</div>
 				<form onSubmit={this.onSubmit.bind(this)} autoComplete="off">
-					<input name="email" type="text" placeholder="Your Email" />
-					<input name="password" type="password" placeholder="Your Password" />
+					<input
+						name="email"
+						type="text"
+						placeholder="Your Email"
+						autoComplete="off"
+					/>
+					<input
+						name="password"
+						type="password"
+						placeholder="Your Password"
+						autoComplete="off"
+					/>
 					<input name="name" type="text" placeholder="Restaurant Name" />
-					<textarea rows="10" name="info" />
 					<select name="type">
 						<option value>Choose Type Of your Brand</option>
 						<option value="Cafe">Cafe</option>
@@ -31,9 +59,10 @@ class SignIn extends Component {
 					</select>
 					<input name="phone" type="text" placeholder="Phone Number" />
 					<input name="location" type="text" placeholder="Address" />
+					<textarea rows="10" name="info" placeholder="Short info ..." />
 					<button className="form-btn">Sign Up</button>
 				</form>
-			</div>
+			</section>
 		);
 	}
 }
