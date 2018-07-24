@@ -9,14 +9,9 @@
 	border: 2px solid rgb(12, 67, 131);
 	outline: none;
 }
-#sign-in {
-	position: fixed;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
+#sign-in-page {
 	min-width: 100vw;
-	min-height: 100vh;
+	min-height: calc(100vh - 60px);
 	background-color: rgba(7, 77, 89, 0.4);
 	display: flex;
 	align-items: center;
@@ -27,11 +22,11 @@
 		width: 90%;
 		max-width: 400px;
 		text-align: center;
-
+		padding: 10px;
 		input {
 			@include formInputs;
 		}
-		a {
+		button {
 			@include formInputs;
 			background-color: rgb(12, 67, 132);
 			color: #fff;

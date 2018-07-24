@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import SignIn from "../auth/SignIn.jsx";
 
 class Nav extends Component {
 	render() {
@@ -11,22 +10,26 @@ class Nav extends Component {
 						<h1>Eatify</h1>
 					</div>
 					<div id="nav-links">
-						<Link href="#" className="nav-link">
+						<Link to="/" className="nav-link">
 							Home
 						</Link>
-						<Link href="#" className="nav-link">
+						<Link to="/services" className="nav-link">
 							Services
 						</Link>
-						<Link href="#" className="nav-link">
+						<Link to="/features" className="nav-link">
 							Features
 						</Link>
-						<Link href="#" className="nav-link">
+						<Link to="/contact" className="nav-link">
 							Contact
 						</Link>
 					</div>
 					<div id="auth-link">
-						<button id="sign-in">Sign In</button>
-						<button id="sign-up">Sign Up</button>
+						<Link to="/sign-in" id="sign-in-btn">
+							Sign In
+						</Link>
+						<Link to="/sign-up" id="sign-up-btn">
+							Sign Up
+						</Link>
 					</div>
 				</nav>
 			</header>

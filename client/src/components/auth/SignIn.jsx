@@ -15,13 +15,13 @@ class SignIn extends Component {
 	}
 	render() {
 		return (
-			<div id="sign-in">
+			<section id="sign-in-page">
 				<form onSubmit={this.onSubmit.bind(this)} autoComplete="off">
 					<input name="email" type="text" placeholder="Your Email" />
 					<input name="password" type="password" placeholder="Your Password" />
-					<button>Sign In</button>
+					<button className="form-btn">Sign In</button>
 				</form>
-			</div>
+			</section>
 		);
 	}
 }

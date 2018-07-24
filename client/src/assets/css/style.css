@@ -1,24 +1,20 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:700");
-#sign-in {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+#sign-in-page {
   min-width: 100vw;
-  min-height: 100vh;
+  min-height: calc(100vh - 60px);
   background-color: rgba(7, 77, 89, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
 }
-#sign-in form {
+#sign-in-page form {
   width: 90%;
   max-width: 400px;
   text-align: center;
+  padding: 10px;
 }
-#sign-in form input {
+#sign-in-page form input {
   width: 100%;
   display: block;
   margin-bottom: 20px;
@@ -29,7 +25,7 @@
   border: 2px solid #0c4383;
   outline: none;
 }
-#sign-in form a {
+#sign-in-page form button {
   width: 100%;
   display: block;
   margin-bottom: 20px;
@@ -68,11 +64,23 @@ header #nav-links a {
   color: #fff;
   letter-spacing: 1px;
 }
-header #auth-link button {
+header #auth-link a {
   margin: 0 7px;
   padding: 5px 20px;
-  border-radius: 6px;
+  border-radius: 4px;
   font-size: 16px;
+  text-decoration: none;
+  border: 2px solid;
+  color: #fff;
+  letter-spacing: 1px;
+}
+header #auth-link #sign-in-btn {
+  background-color: #0ec441;
+  border-color: #0ec441;
+}
+header #auth-link #sign-up-btn {
+  background-color: #e6262e;
+  border-color: #e6262e;
 }
 
 * {
@@ -83,6 +91,26 @@ body,
 html {
   padding: 0;
   margin: 0;
+}
+
+section {
+  min-height: calc(100vh - 60px);
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#error-page h1 {
+  font-size: 120px;
+  font-weight: 700;
+  font-family: "Raleway", sans-serif;
+  line-height: 0;
+}
+#error-page p {
+  font-size: 30px;
+  margin-top: 0;
 }
 
 /*# sourceMappingURL=style.css.map */
