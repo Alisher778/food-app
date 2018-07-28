@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+var bcrypt = require("bcrypt");
 const Restaurants = require("../models/restaurants");
 
 function isLoggedIn(req, res, next) {
@@ -15,7 +16,7 @@ function isLoggedIn(req, res, next) {
 }
 
 /* GET Restaurant listing. */
-router.get("/all", (req, res, next) => {
+router.get("/all", isLoggedIn, (req, res, next) => {
 	Restaurants.find()
 		.then(data => res.send(data))
 		.catch(err => res.send(err.message));
@@ -23,18 +24,20 @@ router.get("/all", (req, res, next) => {
 
 // Create Restaurant instance
 router.post("/", (req, res) => {
-	const { name, info, location, type, email, phone } = req.body;
-	console.log(email);
+	const { name, info, location, type, email, password, phone } = req.body;
+	const salt = bcrypt.genSaltSync(10);
+	const passwordHash = bcrypt.hashSync(password, salt);
+
 	Restaurants.find({ email }).then(data => {
 		if (data.length === 0) {
-			console.log("====", data.email);
 			Restaurants.create({
-				name: req.body.name,
-				info: req.body.info,
-				location: req.body.location,
-				type: req.body.type,
-				email: req.body.email,
-				phone: req.body.phone
+				name,
+				info,
+				location,
+				type,
+				email,
+				password: passwordHash,
+				phone
 			})
 				.then(data => {
 					req.session.username = data.email;
@@ -55,7 +58,7 @@ router.post("/", (req, res) => {
 					})
 				);
 		} else {
-			console.log("error");
+			console.log("error If statement");
 			res.json({
 				msg: "A user with this email address is exist. Choose another email!",
 				isLogged: false,
@@ -96,6 +99,52 @@ router.get("/delete", (req, res) => {
 	Restaurants.remove()
 		.then(success => res.send(success))
 		.catch(err => res.send(err.message));
+});
+
+router.post("/login", (req, res) => {
+	const { email, password } = req.body;
+
+	Restaurants.find({ email })
+		.then(data => {
+			if (data.length > 0) {
+				const passwordHash = bcrypt.compareSync(password, data[0].password);
+				if (passwordHash) {
+					req.session.username = data.email;
+					req.session.isLogged = true;
+					return data.json({
+						msg: "Successfully logged in",
+						isLogged: true,
+						userName: data[0].email,
+						userId: data[0]._id
+					});
+				} else {
+					res.json({
+						msg: "Oops! Email or Password is wrong",
+						isLogged: false,
+						userName: null,
+						userId: null
+					});
+				}
+			} else {
+				res.json({
+					msg: "There is no an account with" + email,
+					isLogged: false,
+					userName: null,
+					userId: null
+				});
+			}
+		})
+		.catch(err => res.json(err));
+});
+
+router.get("/logout", (req, res) => {
+	req.session.destroy();
+	res.json({
+		msg: "User Signed Out",
+		isLogged: false,
+		userName: null,
+		userId: null
+	});
 });
 
 module.exports = router;

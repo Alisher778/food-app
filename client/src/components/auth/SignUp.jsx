@@ -14,7 +14,7 @@ class SignIn extends Component {
 
 		form.forEach(item => Object.assign(data, { [item.name]: item.value }));
 		axios
-			.post("/api/restaurants", data)
+			.post("/api/restaurants/", data)
 			.then(res => {
 				console.log(res.data);
 				this.setState({ message: res.data.msg });
@@ -33,7 +33,7 @@ class SignIn extends Component {
 		return (
 			<section id="sign-in-page">
 				<div id="error-msg">
-					<ul>{this.msgFilter()}</ul>
+					<ul>{this.state.message}</ul>
 				</div>
 				<form onSubmit={this.onSubmit.bind(this)} autoComplete="off">
 					<input

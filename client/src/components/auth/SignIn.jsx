@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class SignIn extends Component {
 	constructor() {
@@ -12,6 +13,13 @@ class SignIn extends Component {
 		let data = {};
 
 		form.forEach(item => Object.assign(data, { [item.name]: item.value }));
+		axios
+			.post("/api/restaurants/login", data)
+			.then(res => {
+				console.log(res);
+				this.setState({ message: res.data.msg });
+			})
+			.catch(err => this.setState({ message: err.data.msg }));
 	}
 	render() {
 		return (

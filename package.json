@@ -6,6 +6,7 @@
     "start": "concurrently \"nodemon app.js\" \"cd client && npm start\""
   },
   "dependencies": {
+    "bcrypt": "^3.0.0",
     "body-parser": "~1.15.2",
     "compression": "^1.7.2",
     "concurrently": "^3.6.0",
