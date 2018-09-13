@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 // **************  AUTH Components **********************
 import SignIn from "./components/auth/SignIn.jsx";
 import SignUp from "./components/auth/SignUp.jsx";
+import App from "./App";
 // *************  Static Pages  *************************
 import Nav from "./components/partials/Nav.jsx";
 import Contact from "./components/static/Contact.jsx";
@@ -14,15 +15,16 @@ import HomePage from "./components/static/HomePage.jsx";
 // *************  Others  *************************
 import "./assets/css/style.css";
 import registerServiceWorker from "./registerServiceWorker";
+import reducers from "./reducers";
 
-const store = createStore(() => console.log("Empty reducer"));
+const store = createStore(reducers);
 ReactDOM.render(
 	<Provider store={store}>
 		<BrowserRouter>
 			<div>
 				<Nav />
 				<Switch>
-					<Route exact path="/" component={HomePage} />
+					<Route exact path="/" component={App} />
 					<Route path="/contact" component={Contact} />
 					<Route path="/sign-in" component={SignIn} />
 					<Route path="/sign-up" component={SignUp} />

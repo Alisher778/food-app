@@ -211,6 +211,7 @@ class App extends Component {
           })}
         </ul>
         <form />
+       <Restaurants data={this.state.data}/>
       </div>
     );
   }
