@@ -1,0 +1,111 @@
+#sign-in-page {
+    min-width: 100vw;
+    min-height: 100vh;
+    padding-top: 50px;
+    background-color: rgba(7, 77, 89, 0.4);
+    display: flex;
+    align-items: center;
+    border: none;
+  }
+  #sign-in-page form {
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    padding: 10px;
+  }
+  #sign-in-page form input {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 7px;
+    padding: 3px 10px;
+    border: 2px solid #0c4383;
+    outline: none;
+  }
+  #sign-in-page form button {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 7px;
+    padding: 3px 10px;
+    border: 2px solid #0c4383;
+    outline: none;
+    background-color: #0c4384;
+    color: #fff;
+  }
+  #sign-in-page select {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 7px;
+    padding: 3px 10px;
+    border: 2px solid #0c4383;
+    outline: none;
+  }
+  #sign-in-page textarea {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 7px;
+    padding: 3px 10px;
+    border: 2px solid #0c4383;
+    outline: none;
+    height: 100px;
+  }
+  
+  header {
+    height: 60px;
+    margin: 0;
+    padding: 0;
+    background-color: #4a5196;
+    font-family: "Raleway", sans-serif;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+  }
+  header nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 60px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  header #nav-links a {
+    display: inline-block;
+    padding: 5px 20px;
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+  header #auth-link a {
+    margin: 0 7px;
+    padding: 5px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    text-decoration: none;
+    border: 2px solid;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+  header #auth-link #sign-in-btn {
+    background-color: #0ec441;
+    border-color: #0ec441;
+  }
+  header #auth-link #sign-up-btn {
+    background-color: #e6262e;
+    border-color: #e6262e;
+  }

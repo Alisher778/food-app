@@ -20,6 +20,12 @@ header {
 		align-items: center;
 		justify-content: space-between;
 	}
+	#nav-links {
+		width: 50%;
+	}
+	#auth-links {
+		width: 30px;
+	}
 	#nav-links a {
 		display: inline-block;
 		padding: 5px 20px;

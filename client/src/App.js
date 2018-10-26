@@ -29,17 +29,6 @@ class App extends Component {
         }
     }
     
-    // logOutHandler = (e) => {
-    //     e.preventDefault();
-    //     console.log('clicked')
-    //     axios.post('/api/restaurants/logout', {userId: this.props.authState.userId})
-    //         .then(res => {
-    //             window.localStorage.removeItem('token');
-    //             window.location.href = '/'
-    //         })
-    //         .catch(err => console.log(err))
-        
-    // }
     componentDidMount() {
         const userToken = window.localStorage.token;
 
@@ -68,8 +57,6 @@ class App extends Component {
     }
 
     render() {
-        console.log(this.props.authState)
-        console.log("{USER}---",this.props.authState.userName)
         const authRoutes = () => {
             const {authenticated} = this.props.authState;
             if(authenticated){

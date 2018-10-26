@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import {connect} from 'react-redux';
 import axios from 'axios';
+import './Nav.css';
 
 class Nav extends Component {
 	logOutHandler = (e) => {
@@ -39,7 +40,7 @@ class Nav extends Component {
 					<div id="nav-links">
 						{navItem}
 					</div>
-					<div id="auth-link">
+					<div id="auth-links">
 						{authItem}
 					</div>
 				</nav>
@@ -54,9 +55,4 @@ const mapStateToProps = state => {
     }
 }
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         logOut: (id) => dispatch({type: 'LOG_OUT', id})
-//     }
-// }
 export default withRouter(connect(mapStateToProps)(Nav));
