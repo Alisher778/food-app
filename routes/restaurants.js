@@ -1,6 +1,7 @@
-var express = require("express");
-var router = express.Router();
-var bcrypt = require("bcrypt");
+const express = require("express");
+const router = express.Router();
+const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 const Restaurants = require("../models/restaurants");
 
 function isLoggedIn(req, res, next) {
@@ -11,12 +12,13 @@ function isLoggedIn(req, res, next) {
 		msg: "You must login first",
 		isLogged: false,
 		userName: null,
-		userId: null
+		userId: null,
+		userToken: null
 	});
 }
 
 /* GET Restaurant listing. */
-router.get("/all", isLoggedIn, (req, res, next) => {
+router.get("/all", (req, res, next) => {
 	Restaurants.find()
 		.then(data => res.send(data))
 		.catch(err => res.send(err.message));
@@ -24,9 +26,10 @@ router.get("/all", isLoggedIn, (req, res, next) => {
 
 // Create Restaurant instance
 router.post("/", (req, res) => {
-	const { name, info, location, type, email, password, phone } = req.body;
+	const { name, info, location, type, email, password, phone} = req.body;
 	const salt = bcrypt.genSaltSync(10);
 	const passwordHash = bcrypt.hashSync(password, salt);
+	const token = jwt.sign({ email, password }, 'secret');
 
 	Restaurants.find({ email }).then(data => {
 		if (data.length === 0) {
@@ -37,7 +40,8 @@ router.post("/", (req, res) => {
 				type,
 				email,
 				password: passwordHash,
-				phone
+				phone,
+				token
 			})
 				.then(data => {
 					req.session.username = data.email;
@@ -46,7 +50,8 @@ router.post("/", (req, res) => {
 						msg: "Your account has been Successfully created",
 						isLogged: true,
 						userName: data.email,
-						userId: data._id
+						userId: data._id,
+						userToken: token
 					});
 				})
 				.catch(err =>
@@ -54,7 +59,8 @@ router.post("/", (req, res) => {
 						msg: err.message,
 						isLogged: false,
 						userName: null,
-						userId: null
+						userId: null,
+						userToken: null
 					})
 				);
 		} else {
@@ -63,7 +69,8 @@ router.post("/", (req, res) => {
 				msg: "A user with this email address is exist. Choose another email!",
 				isLogged: false,
 				userName: null,
-				userId: null
+				userId: null,
+				userToken: null
 			});
 		}
 	});
@@ -111,18 +118,20 @@ router.post("/login", (req, res) => {
 				if (passwordHash) {
 					req.session.username = data.email;
 					req.session.isLogged = true;
-					return data.json({
+					return res.json({
 						msg: "Successfully logged in",
 						isLogged: true,
 						userName: data[0].email,
-						userId: data[0]._id
+						userId: data[0]._id,
+						userToken: data[0].token
 					});
 				} else {
 					res.json({
 						msg: "Oops! Email or Password is wrong",
 						isLogged: false,
 						userName: null,
-						userId: null
+						userId: null,
+						userToken: null
 					});
 				}
 			} else {
@@ -130,21 +139,82 @@ router.post("/login", (req, res) => {
 					msg: "There is no an account with" + email,
 					isLogged: false,
 					userName: null,
-					userId: null
+					userId: null,
+					userToken: null
 				});
 			}
 		})
 		.catch(err => res.json(err));
 });
 
-router.get("/logout", (req, res) => {
+router.post('/verify-token', (req, res) => {
+	const decoded = jwt.decode(req.body.token);
+	const { email, password } = decoded;
+	console.log(email)
+
+	Restaurants.find({ email })
+		.then(data => {
+			if (data.length > 0) {
+				const passwordHash = bcrypt.compareSync(password, data[0].password);
+				console.log(passwordHash)
+				if (passwordHash) {
+					req.session.username = data.email;
+					req.session.isLogged = true;
+					console.log(passwordHash)
+					return res.json({
+						msg: "Successfully logged in",
+						isLogged: true,
+						userName: data[0].email,
+						userId: data[0]._id,
+						userToken: data[0].token
+					});
+				} else {
+					res.json({
+						msg: "Oops! Email or Password is wrong",
+						isLogged: false,
+						userName: null,
+						userId: null,
+						userToken: null
+					});
+				}
+			} else {
+				res.json({
+					msg: "There is no an account with" + email,
+					isLogged: false,
+					userName: null,
+					userId: null,
+					userToken: null
+				});
+			}
+		})
+		.catch(err => res.json(err));
+})
+
+router.post("/logout", (req, res) => {
 	req.session.destroy();
-	res.json({
-		msg: "User Signed Out",
-		isLogged: false,
-		userName: null,
-		userId: null
-	});
+	console.log(1111,req.body)
+	Restaurants.findByIdAndUpdate(req.body.userId, {token: null})
+		.then(data => {
+			console.log(data);
+			
+			res.json({
+				msg: "User Signed Out",
+				isLogged: false,
+				userName: null,
+				userId: null,
+				userToken: null
+			});
+		})
+		.catch(err => {
+			res.json({
+				msg: "Could not Sign Out",
+				isLogged: false,
+				userName: null,
+				userId: null,
+				userToken: null
+			});
+		})
+	
 });
 
 module.exports = router;

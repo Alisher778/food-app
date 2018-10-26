@@ -8,14 +8,15 @@ const restaurantSchema = new Schema({
 	type: { type: String, default: "Restaurant" },
 	email: { type: String, required: [true, "%Email is required"] },
 	phone: String,
-	password: String,
+	password: {type: String, required: true},
 	admin_name: String,
 	admin_email: String,
 	admin_avatar: String,
 	admin_phone: String,
 	admin_lang: String,
 	createdAt: { type: Date, default: Date.now() },
-	updatedAt: { type: Date, default: Date.now() }
+	updatedAt: { type: Date, default: Date.now() },
+	token: String
 });
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);
