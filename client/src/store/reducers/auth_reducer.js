@@ -6,6 +6,7 @@ const initialState = {
     userName: null,
     userToken: null
 }
+
 const verefiyToken = (state = initialState, action) => {
     const {data} = action;
     switch(action.type) {
@@ -19,6 +20,15 @@ const verefiyToken = (state = initialState, action) => {
                 userToken: data.userToken,
             }
         case "SIGN_UP":
+            return {...state, 
+                authenticated: data.authenticated,
+                authLinks: data.authUrls,
+                isLogged: data.isLogged,
+                userId: data.userId,
+                userName: data.userName,
+                userToken: data.userToken,
+            }
+        case "SIGN_IN":
             return {...state, 
                 authenticated: data.authenticated,
                 authLinks: data.authUrls,

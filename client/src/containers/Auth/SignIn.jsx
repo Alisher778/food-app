@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import {connect} from 'react-redux';
 import axios from 'axios';
 
 class SignIn extends Component{
     constructor() {
         super();
-        this.state = {email: '', password: ''}
+        this.state = {email: '', password: '', name: ''}
     }
 
     emailHandler = (e) => {
@@ -19,12 +21,29 @@ class SignIn extends Component{
         e.preventDefault();
         axios.post('/api/restaurants/login', this.state)
             .then(res => {
-                window.localStorage.setItem('token', res.data.userToken);
-                console.log(res.data, localStorage.token)
+                const {userToken, userId, userName, isLogged} = res.data;
+                    if(isLogged && userToken) {
+                        window.localStorage.setItem('token', JSON.stringify(res.data.userToken))
+                        this.setState({
+                            authenticated: isLogged,
+                            isLogged: isLogged,
+                            userToken,
+                            userId,
+                            userName,
+                            authUrls: [
+                                {url: '/log-out', title: 'Log Out', logOutHandler: this.logOutHandler},
+                                {url: '/profile', title: 'My Profile'}
+                            ]
+                        });
+                        this.props.signIn(this.state);
+                        this.props.history.push('/')
+                    }
+                
             })
             .catch(err => console.log(err))
     }
     render() {
+        console.log(this.props)
         return(
             <section>
                 <div>
@@ -53,4 +72,15 @@ class SignIn extends Component{
     }
 }
 
-export default SignIn;
+const mapStateToProps = state => {
+    return {
+        authState: state.authReducer
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        signIn: (data) => dispatch({type: 'SIGN_IN', data})
+    }
+}
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SignIn));

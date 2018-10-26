@@ -110,7 +110,8 @@ router.get("/delete", (req, res) => {
 
 router.post("/login", (req, res) => {
 	const { email, password } = req.body;
-
+	const newGeneratedToken = jwt.sign({ email, password }, 'secret');
+	
 	Restaurants.find({ email })
 		.then(data => {
 			if (data.length > 0) {
@@ -118,13 +119,17 @@ router.post("/login", (req, res) => {
 				if (passwordHash) {
 					req.session.username = data.email;
 					req.session.isLogged = true;
-					return res.json({
-						msg: "Successfully logged in",
-						isLogged: true,
-						userName: data[0].email,
-						userId: data[0]._id,
-						userToken: data[0].token
-					});
+					Restaurants.update({_id: data[0]._id}, {token: newGeneratedToken})
+						.then(newToken => {
+							return res.json({
+								msg: "Successfully logged in",
+								isLogged: true,
+								userName: data[0].email,
+								userId: data[0]._id,
+								userToken: newGeneratedToken
+							});
+						})
+					
 				} else {
 					res.json({
 						msg: "Oops! Email or Password is wrong",
