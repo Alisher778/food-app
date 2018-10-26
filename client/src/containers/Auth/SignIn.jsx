@@ -18,7 +18,10 @@ class SignIn extends Component{
     formHandler = (e) => {
         e.preventDefault();
         axios.post('/api/restaurants/login', this.state)
-            .then(res => console.log(res.data))
+            .then(res => {
+                window.localStorage.setItem('token', res.data.userToken);
+                console.log(res.data, localStorage.token)
+            })
             .catch(err => console.log(err))
     }
     render() {

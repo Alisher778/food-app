@@ -10,15 +10,23 @@ const verefiyToken = (state = initialState, action) => {
     const {data} = action;
     switch(action.type) {
         case "VERIFY_TOKEN" :
-        console.log('Ia m reducer', action)
-        return {...state, 
-            authenticated: data.authenticated,
-            authLinks: data.authUrls,
-            isLogged: data.isLogged,
-            userId: data.userId,
-            userName: data.userName,
-            userToken: data.userToken,
-        }
+            return {...state, 
+                authenticated: data.authenticated,
+                authLinks: data.authUrls,
+                isLogged: data.isLogged,
+                userId: data.userId,
+                userName: data.userName,
+                userToken: data.userToken,
+            }
+        case "SIGN_UP":
+            return {...state, 
+                authenticated: data.authenticated,
+                authLinks: data.authUrls,
+                isLogged: data.isLogged,
+                userId: data.userId,
+                userName: data.userName,
+                userToken: data.userToken,
+            }
        default:
        return state;
     }

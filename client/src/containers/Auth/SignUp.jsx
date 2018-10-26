@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import {connect} from 'react-redux';
 import axios from 'axios';
 
-class SignIn extends Component{
+class SignUp extends Component{
     constructor() {
         super();
         this.state = {email: '', password: '', name: ''}
@@ -27,9 +29,23 @@ class SignIn extends Component{
         e.preventDefault();
         axios.post('/api/restaurants/', this.state)
             .then(res => {
-                window.localStorage.setItem('token', JSON.stringify(res.data.userToken))
-                console.log(res.data);
-                console.log(window.localStorage.token)
+                const {userToken, userId, userName, isLogged} = res.data;
+                    if(isLogged) {
+                        window.localStorage.setItem('token', JSON.stringify(res.data.userToken))
+                        this.setState({
+                            authenticated: isLogged,
+                            isLogged: isLogged,
+                            userToken,
+                            userId,
+                            userName,
+                            authUrls: [
+                                {url: '/log-out', title: 'Log Out', logOutHandler: this.logOutHandler},
+                                {url: '/profile', title: 'My Profile'}
+                            ]
+                        });
+                        this.props.signUp(this.state);
+                    }
+                
             })
             .catch(err => console.log(err))
     }
@@ -71,4 +87,15 @@ class SignIn extends Component{
     }
 }
 
-export default SignIn;
+const mapStateToProps = state => {
+    return {
+        authState: state.authReducer
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        signUp: (data) => dispatch({type: 'SIGN_UP', data})
+    }
+}
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SignUp));

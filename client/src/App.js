@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios from 'axios';
 
@@ -41,6 +41,7 @@ class App extends Component {
     }
     componentDidMount() {
         const userToken = window.localStorage.token;
+
         if(userToken && userToken !== '') {
             axios.post('/api/restaurants/verify-token', {token: JSON.parse(localStorage.token)})
                 .then(res => {
@@ -58,7 +59,6 @@ class App extends Component {
                             ]
                         });
                         this.props.verifyToken(this.state);
-                        
                     }
                     
                 })
@@ -68,14 +68,15 @@ class App extends Component {
 
     render() {
         console.log(this.props.authState)
+        console.log("{USER}---",this.props.authState.userName)
         const authRoutes = () => {
-            const {authenticated} = this.state;
+            const {authenticated} = this.props.authState;
             if(authenticated){
                 return( 
-                    <div>
+                    <Switch>
                         <Route path="/about" exact component={Secret} />
                         <Route path="/contact" exact component={Contact} />
-                    </div>
+                    </Switch>
                 );
             } else {
                 return <Route path={window.location.pathname}  exact component={AuthError} />
@@ -89,6 +90,7 @@ class App extends Component {
                 />
                     
                 <main>
+                    <h1>{this.props.authState.userName}</h1>
                     <Switch>
                         <Route path="/" exact component={Home} />
                         <Route path="/sign-in" exact component={SignIn} />
@@ -112,4 +114,4 @@ const mapDispatchToProps = dispatch => {
         verifyToken: (data) => dispatch({type: 'VERIFY_TOKEN', data})
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

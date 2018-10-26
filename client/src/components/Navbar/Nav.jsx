@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 const Nav = (props) => {
-	
 	const {staticLinks, authLinks, logOutHandler} = props;
-	console.log(props.authLinks)
 	// Render Static Navbar links
 	const navItem = staticLinks.map((item, i) => {
 		return <Link to={item.url} key={i} className="nav-link">{item.title}</Link>
