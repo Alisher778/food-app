@@ -64,7 +64,6 @@ router.post("/", (req, res) => {
 					})
 				);
 		} else {
-			console.log("error If statement");
 			res.json({
 				msg: "A user with this email address is exist. Choose another email!",
 				isLogged: false,
@@ -155,7 +154,6 @@ router.post("/login", (req, res) => {
 router.post('/verify-token', (req, res) => {
 	const decoded = jwt.decode(req.body.token);
 	const { email, password } = decoded;
-	console.log(email)
 
 	Restaurants.find({ email })
 		.then(data => {
@@ -197,7 +195,6 @@ router.post('/verify-token', (req, res) => {
 
 router.post("/logout", (req, res) => {
 	req.session.destroy();
-	console.log(1111,req.body)
 	Restaurants.findByIdAndUpdate(req.body.userId, {token: null})
 		.then(data => {
 			console.log(data);

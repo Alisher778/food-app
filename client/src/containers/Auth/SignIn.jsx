@@ -36,14 +36,13 @@ class SignIn extends Component{
                             ]
                         });
                         this.props.signIn(this.state);
-                        this.props.history.push('/')
+                        this.props.history.push('/');
                     }
                 
             })
             .catch(err => console.log(err))
     }
     render() {
-        console.log(this.props)
         return(
             <section>
                 <div>

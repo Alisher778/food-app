@@ -28,17 +28,18 @@ class App extends Component {
             ]
         }
     }
-
-    logOutHandler = (e) => {
-        e.preventDefault();
-        axios.post('/api/restaurants/logout', {userId: this.state.userId})
-            .then(res => {
-                window.localStorage.removeItem('token');
-                window.location.href = '/'
-            })
-            .catch(err => console.log(err))
+    
+    // logOutHandler = (e) => {
+    //     e.preventDefault();
+    //     console.log('clicked')
+    //     axios.post('/api/restaurants/logout', {userId: this.props.authState.userId})
+    //         .then(res => {
+    //             window.localStorage.removeItem('token');
+    //             window.location.href = '/'
+    //         })
+    //         .catch(err => console.log(err))
         
-    }
+    // }
     componentDidMount() {
         const userToken = window.localStorage.token;
 
@@ -90,13 +91,13 @@ class App extends Component {
                 />
                     
                 <main>
-                    <h1>{this.props.authState.userName}</h1>
                     <Switch>
                         <Route path="/" exact component={Home} />
                         <Route path="/sign-in" exact component={SignIn} />
                         <Route path="/sign-up" exact component={SignUp} />
                         {authRoutes()}
                     </Switch>
+                    <h1>{this.props.authState.userName}</h1>
                 </main>
             </div>
         );

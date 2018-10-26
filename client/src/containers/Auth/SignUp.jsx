@@ -30,7 +30,7 @@ class SignUp extends Component{
         axios.post('/api/restaurants/', this.state)
             .then(res => {
                 const {userToken, userId, userName, isLogged} = res.data;
-                    if(isLogged) {
+                    if(isLogged && userToken) {
                         window.localStorage.setItem('token', JSON.stringify(res.data.userToken))
                         this.setState({
                             authenticated: isLogged,
@@ -44,6 +44,7 @@ class SignUp extends Component{
                             ]
                         });
                         this.props.signUp(this.state);
+                        this.props.history.push('/')
                     }
                 
             })
