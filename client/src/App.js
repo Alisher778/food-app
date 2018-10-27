@@ -3,7 +3,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios from 'axios';
 
-import Navbar from './components/Navbar/Nav.jsx';
+import Navbar from './containers/Navbar/Nav.jsx';
 import Home from './components/Home/Home.jsx'
 import Secret from './components/Secret/Secret.jsx';
 import Contact from './components/Contact/Contact.jsx';
@@ -23,8 +23,8 @@ class App extends Component {
             userName:      null,
             userId:        null,
             authUrls: [
-                {url: '/sign-up', title: 'Sign Up'},
-                {url: '/sign-in', title: 'Sign In'},
+                {url: '/sign-up', title: 'Sign Up', btnId: 'sign-up-btn'},
+                {url: '/sign-in', title: 'Sign In', btnId: 'sign-in-btn'},
             ]
         }
     }
@@ -44,8 +44,8 @@ class App extends Component {
                             userId,
                             userName,
                             authUrls: [
-                                {url: '/log-out', title: 'Log Out', logOutHandler: this.logOutHandler},
-                                {url: '/profile', title: 'My Profile'}
+                                {url: '/log-out', title: 'Log Out', logOutHandler: this.logOutHandler, btnId: 'log-out-btn'},
+                                {url: '/profile', title: 'My Profile', btnId: 'user-profile-btn'}
                             ]
                         });
                         this.props.verifyToken(this.state);

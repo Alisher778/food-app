@@ -1,5 +1,5 @@
 const initialState = {
-    authLinks: [{url: "/sign-up", title: "Sign Up"}, {url: "/sign-in", title: "Sign In"}],
+    authLinks: [{url: "/sign-up", title: "Sign Up", btnId: 'sign-up-btn'}, {url: "/sign-in", title: "Sign In", btnId: 'sign-in-btn'}],
     authenticated: false,
     isLogged: false,
     userId: null,

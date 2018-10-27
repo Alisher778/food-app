@@ -26,17 +26,17 @@ class Nav extends Component {
 		// Render Auth links
 		const authItem = authLinks.map((item, i) => {
 			if(item.url === '/log-out'){
-				return <Link to={item.url} id={item.url.slice(1)+'-btn'} key={i} onClick={this.logOutHandler}>{item.title}</Link>
+				return <Link to={item.url} id={item.btnId} key={i} onClick={this.logOutHandler}>{item.title}</Link>
 
 			} else {
-				return <Link to={item.url} id={item.url.slice(1)+'-btn'} key={i} >{item.title}</Link>
+				return <Link to={item.url} id={item.btnId} key={i} >{item.title}</Link>
 			}
 		})
 
 		return (
 			<header>
 				<nav>
-					<div id="logo"><h1>Eatify</h1></div>
+					<div id="logo"><Link to="/"><h1>Eatify</h1></Link></div>
 					<div id="nav-links">
 						{navItem}
 					</div>

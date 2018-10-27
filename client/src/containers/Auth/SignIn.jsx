@@ -31,8 +31,8 @@ class SignIn extends Component{
                             userId,
                             userName,
                             authUrls: [
-                                {url: '/log-out', title: 'Log Out', logOutHandler: this.logOutHandler},
-                                {url: '/profile', title: 'My Profile'}
+                                {url: '/log-out', title: 'Log Out', logOutHandler: this.logOutHandler, btnId: 'log-out-btn'},
+                                {url: '/profile', title: 'My Profile', btnId: 'user-profile-btn'}
                             ]
                         });
                         this.props.signIn(this.state);

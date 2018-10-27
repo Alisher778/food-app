@@ -20,11 +20,24 @@ header {
 		align-items: center;
 		justify-content: space-between;
 	}
+	#logo {
+		width: 20%;
+		a {
+			color: #fff;
+			text-decoration: none;
+		}
+	}
 	#nav-links {
 		width: 50%;
+		display: flex;
+    	align-items: center;
+    	justify-content: center;
 	}
 	#auth-links {
-		width: 30px;
+		width: 30%;
+		display: flex;
+    	align-items: center;
+    	justify-content: flex-end;
 	}
 	#nav-links a {
 		display: inline-block;
@@ -35,7 +48,7 @@ header {
 		color: #fff;
 		letter-spacing: 1px;
 	}
-	#auth-link {
+	#auth-links {
 		a {
 			margin: 0 7px;
 			padding: 5px 20px;
@@ -45,6 +58,15 @@ header {
 			border: 2px solid;
 			color: #fff;
 			letter-spacing: 1px;
+		}
+		#log-out-btn {
+			background: #de0851;
+    		border-color: #de0851 !important;
+		}
+		#user-profile-btn {
+			background: #08de6f;
+			border-color: #08de6f !important;
+			color: #000;
 		}
 		#sign-in-btn {
 			background-color: rgb(14, 196, 65);
