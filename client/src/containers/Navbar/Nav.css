@@ -65,7 +65,7 @@
     height: 60px;
     margin: 0;
     padding: 0;
-    background-color: #4a5196;
+    background-color: #121650;
     font-family: "Raleway", sans-serif;
     position: fixed;
     top: 0;
@@ -101,6 +101,12 @@
     color: #fff;
     letter-spacing: 1px;
   }
+  #main-links {
+		width: 80%;
+		display: flex;
+    justify-content: space-between;
+
+	}
   header #auth-link #sign-in-btn {
     background-color: #0ec441;
     border-color: #0ec441;
@@ -109,3 +115,40 @@
     background-color: #e6262e;
     border-color: #e6262e;
   }
+
+  #bars {
+    width: 60px;
+    height: 60px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+  }
+  #bars span {
+    width: 45px;
+    display: block;
+    height: 5px;
+    border-radius: 3px;
+    background: #fff;
+    margin: 4px auto;
+}
+
+@media screen and (max-width: 992px) {
+  #main-links {display: none; text-align: center}
+  #bars {display: flex;}
+  #bars:hover + #main-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 60px;
+    background-color: #5a2467;
+    width: 100%;
+  }
+  header #nav-links {width: 100%; flex-direction: column;}
+  #auth-links {flex-direction: column; width: 100%;}
+  header #auth-links a{margin: 5px auto !important;}
+}

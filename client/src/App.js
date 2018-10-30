@@ -84,7 +84,6 @@ class App extends Component {
                         <Route path="/sign-up" exact component={SignUp} />
                         {authRoutes()}
                     </Switch>
-                    <h1>{this.props.authState.userName}</h1>
                 </main>
             </div>
         );

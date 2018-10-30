@@ -37,11 +37,18 @@ class Nav extends Component {
 			<header>
 				<nav>
 					<div id="logo"><Link to="/"><h1>Eatify</h1></Link></div>
-					<div id="nav-links">
-						{navItem}
+					<div id="bars">
+						<span></span>
+						<span></span>
+						<span></span>
 					</div>
-					<div id="auth-links">
-						{authItem}
+					<div id="main-links">
+						<div id="nav-links">
+							{navItem}
+						</div>
+						<div id="auth-links">
+							{authItem}
+						</div>
 					</div>
 				</nav>
 			</header>
