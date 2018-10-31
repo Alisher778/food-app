@@ -3,6 +3,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { FiMail, FiLock } from "react-icons/fi";
 import axios from 'axios';
+import chef from '../../assets/img/chef-green.png';
 
 class SignIn extends Component{
     constructor() {
@@ -45,9 +46,18 @@ class SignIn extends Component{
     }
     render() {
         return(
-            <section>
-                <div>
+            <section id="sign-in-sec">
+                <div className="sec-container">
+                    <div className="col-left">
+                        <img src={chef} alt=""/>
+                        <h3>Do you like cooking like?</h3>
+                        <p>
+                        If you want to become a great chef, you have to work with great chefs. And that's exactly what I did.
+                        </p>
+                        <p><strong><em>Gordon Ramsay</em></strong></p>
+                    </div>
                     <form action="" onSubmit={this.formHandler} id="sign-in-form">
+                        <h3>Sign In</h3>
                         <div>
                             <FiMail />
                             <input 

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
+import { FiMail, FiLock, FiUser } from "react-icons/fi";
 import axios from 'axios';
 import './Auth.css';
+import chef from '../../assets/img/chef-green.png';
 
 class SignUp extends Component{
     constructor() {
@@ -55,30 +57,45 @@ class SignUp extends Component{
         console.log(this.state)
         return(
             <section>
-                <div>
+                <div className="sec-container">
+                    <div className="col-left">
+                        <img src={chef} alt=""/>
+                        <h3>Do you like cooking like?</h3>
+                        <p>
+                        If you want to become a great chef, you have to work with great chefs. And that's exactly what I did.
+                        </p>
+                        <p><strong><em>Gordon Ramsay</em></strong></p>
+                    </div>
                     <form action="" onSubmit={this.formHandler} id="sign-in-form">
+                        <h3>Sign Up</h3>
                         <div>
+                            <FiUser />
                             <input 
                                 type="text" 
                                 name="name" 
                                 value={this.state.name}
                                 onChange={this.nameHandler}
+                                placeholder="Restaurant Name"
                             />
                         </div>
                         <div>
+                            <FiMail />
                             <input 
-                                type="text" 
+                                type="email" 
                                 name="email" 
                                 value={this.state.email}
                                 onChange={this.emailHandler}
+                                placeholder="Your Email"
                             />
                         </div>
                         <div>
+                            <FiLock />
                             <input 
                                 type="text" 
                                 name="password" 
                                 value={this.state.password}
                                 onChange={this.passwordHandler}
+                                placeholder="Password"
                             />
                         </div>
                         <button>Sign Up</button>

@@ -1,5 +1,22 @@
+.sec-container {
+    width: 100%;
+    max-width: 900px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.col-left {
+    width: 40%;
+    text-align: center;
+}
+.col-left img{
+    height: 300px;
+}
 #sign-in-form, #sign-up-form {
-    width: 350px;
+    width: 40%;
+    max-width: 350px;
+    min-width: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,9 +32,9 @@
 }
 
 #sign-in-form input, #sign-up-form input, #sign-in-form button, #sign-up-form button {
-    width: 80%;
-    height: 40px;
-    border: 2px solid #48e97b;
+    width: 90%;
+    height: 45px;
+    border: 2px solid #0ec441;
     border-radius: 20px;
     padding: 4px 40px;
     font-size: 18px;
@@ -27,15 +44,15 @@
 }
 #sign-in-form div svg, #sign-up-form div svg {
     position: absolute;
-    left: 50px;
-    height: 40px;
+    left: 35px;
+    height: 45px;
     font-size: 18px;
 }
 
 #sign-in-form button, #sign-up-form button {
-    background-color: #48e97b;
+    background-color: #0ec441;
     color: #fff;
     font-size: 17px;
-    margin-top: 30px;
+    margin-top: 12px;
     padding: 0;
 }
