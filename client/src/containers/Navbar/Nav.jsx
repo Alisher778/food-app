@@ -5,6 +5,11 @@ import axios from 'axios';
 import './Nav.css';
 
 class Nav extends Component {
+	constructor() {
+		super();
+		this.state = {}
+	}
+
 	logOutHandler = (e) => {
         e.preventDefault();
         console.log('clicked')
@@ -15,7 +20,18 @@ class Nav extends Component {
             })
             .catch(err => console.log(err))
         
-    }
+	}
+	
+	// Navbar toggle effect
+	navBarHandler = () => {
+		const dropDownMenu = document.getElementById('main-links');
+		dropDownMenu.className = dropDownMenu.className?'':"mobile";
+	}
+
+	// navBarItemHandler = (e) => {
+	// 	const dropDownMenu = document.getElementById('main-links');
+	// 	dropDownMenu.className = dropDownMenu.className?'':"mobile";
+	// }
 	render() {
 
 		const {staticLinks, authLinks, logOutHandler} = this.props;
@@ -37,12 +53,12 @@ class Nav extends Component {
 			<header>
 				<nav>
 					<div id="logo"><Link to="/"><h1>Eatify</h1></Link></div>
-					<div id="bars">
+					<div id="bars" onClick={this.navBarHandler}>
 						<span></span>
 						<span></span>
 						<span></span>
 					</div>
-					<div id="main-links">
+					<div id="main-links" onClick={this.navBarHandler}>
 						<div id="nav-links">
 							{navItem}
 						</div>

@@ -3,7 +3,7 @@ header {
 	height: 60px;
 	margin: 0;
 	padding: 0;
-	background-color: rgb(74, 81, 150);
+	// background-color: rgb(74, 81, 150);
 	font-family: "Raleway", sans-serif;
 	position: fixed;
 	top: 0;
@@ -28,13 +28,13 @@ header {
 		}
 	}
 	#nav-links {
-		width: 50%;
+		width: 60%;
 		display: flex;
     	align-items: center;
     	justify-content: center;
 	}
 	#auth-links {
-		width: 30%;
+		width: 40%;
 		display: flex;
     	align-items: center;
     	justify-content: flex-end;

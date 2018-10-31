@@ -1,0 +1,41 @@
+#sign-in-form, #sign-up-form {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#sign-in-form > div, #sign-up-form > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 12px 0;
+    position: relative;
+}
+
+#sign-in-form input, #sign-up-form input, #sign-in-form button, #sign-up-form button {
+    width: 80%;
+    height: 40px;
+    border: 2px solid #48e97b;
+    border-radius: 20px;
+    padding: 4px 40px;
+    font-size: 18px;
+    outline: none;
+    background: rgba(61, 235, 118, 0.1);
+    text-align: center;
+}
+#sign-in-form div svg, #sign-up-form div svg {
+    position: absolute;
+    left: 50px;
+    height: 40px;
+    font-size: 18px;
+}
+
+#sign-in-form button, #sign-up-form button {
+    background-color: #48e97b;
+    color: #fff;
+    font-size: 17px;
+    margin-top: 30px;
+    padding: 0;
+}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios from 'axios';
+import './Auth.css';
 
 class SignUp extends Component{
     constructor() {
@@ -55,7 +56,7 @@ class SignUp extends Component{
         return(
             <section>
                 <div>
-                    <form action="" onSubmit={this.formHandler}>
+                    <form action="" onSubmit={this.formHandler} id="sign-in-form">
                         <div>
                             <input 
                                 type="text" 

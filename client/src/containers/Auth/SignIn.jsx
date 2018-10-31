@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
+import { FiMail, FiLock } from "react-icons/fi";
 import axios from 'axios';
 
 class SignIn extends Component{
@@ -46,21 +47,25 @@ class SignIn extends Component{
         return(
             <section>
                 <div>
-                    <form action="" onSubmit={this.formHandler}>
+                    <form action="" onSubmit={this.formHandler} id="sign-in-form">
                         <div>
+                            <FiMail />
                             <input 
-                                type="text" 
+                                type="email" 
                                 name="email" 
                                 value={this.state.email}
                                 onChange={this.emailHandler}
+                                placeholder="Email"
                             />
                         </div>
                         <div>
+                            <FiLock />
                             <input 
-                                type="text" 
+                                type="password" 
                                 name="password" 
                                 value={this.state.password}
                                 onChange={this.passwordHandler}
+                                placeholder="Password"
                             />
                         </div>
                         <button>Sign In</button>
