@@ -50,7 +50,7 @@ class SignIn extends Component{
                 <div className="sec-container">
                     <div className="col-left">
                         <img src={chef} alt=""/>
-                        <h3>Do you like cooking like?</h3>
+                        <h3>Do you love cooking?</h3>
                         <p>
                         If you want to become a great chef, you have to work with great chefs. And that's exactly what I did.
                         </p>

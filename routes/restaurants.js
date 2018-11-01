@@ -2,7 +2,10 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 const Restaurants = require("../models/restaurants");
+const PasswordRecovery = require("../models/passwordRecovery");
+
 
 function isLoggedIn(req, res, next) {
 	if (req.session.isLogged) {
@@ -217,6 +220,64 @@ router.post("/logout", (req, res) => {
 			});
 		})
 	
+});
+
+router.post('/forgot-password', (req, res) => {
+	const {email} = req.body;
+	// SMTP option
+	let options = {
+		host: 'smtp.gmail.com',
+		port: 465,
+		secure: true, // true for 465, false for other ports
+		auth: {
+			user: process.env.GMAIL, // generated ethereal user
+			pass: process.env.GMAILPASSWORD // generated ethereal password
+		}
+	}
+	
+	Restaurants.findOne({email})
+		.then(data => {
+				// setup email data with unicode symbols
+			let mailOptions = {
+				from: '"Foodifiy" <foodify@example.com>', // sender address
+				to: email, // list of receivers
+				subject: 'Sign In Request', // Subject line
+				text: 'Hello '+email, // plain text body
+				html: '<b>Hello world?</b>' // html body
+			};
+			PasswordRecovery.create({
+				token: 'Hello There'
+			}).then(token => console.log(token))
+			.catch(err => console.log(err));
+			
+			const transporter = nodemailer.createTransport(options);
+			// send mail with defined transport object
+			transporter.sendMail(mailOptions, (error, info) => {
+				if (error) {	
+					return res.json({msg: 'Something went wrong', status: false});
+				}
+				res.json({msg: 'Email has been sent successfully to '+email, status: true});
+				
+			});
+			
+		})
+		.catch(err => res.json({msg: 'Email hasn\'t been found', status: false}));
+	
+	
+});
+
+// Update restaurant sign in password
+router.post("/edit-password/:id/:", (req, res) => {
+	Restaurants.findByIdAndUpdate(req.params.id, {
+		$set: req.body,
+		updatedAt: Date.now()
+	})
+		.then(() => {
+			Restaurants.find()
+				.then(data => res.json(data))
+				.catch(err => res.json(err.message));
+		})
+		.catch(err => res.send(err.message));
 });
 
 module.exports = router;
