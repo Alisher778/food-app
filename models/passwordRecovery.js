@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const passRecoverySchema = new Schema({
+  email: String,
   token: String,
   createdAt: {type: Date, default: Date.now()}
 });

@@ -237,7 +237,8 @@ router.post('/forgot-password', (req, res) => {
 	
 	Restaurants.findOne({email})
 		.then(data => {
-				// setup email data with unicode symbols
+			if(data) {
+					// setup email data with unicode symbols
 			let mailOptions = {
 				from: '"Foodifiy" <foodify@example.com>', // sender address
 				to: email, // list of receivers
@@ -245,21 +246,33 @@ router.post('/forgot-password', (req, res) => {
 				text: 'Hello '+email, // plain text body
 				html: '<b>Hello world?</b>' // html body
 			};
-			PasswordRecovery.create({
-				token: 'Hello There'
-			}).then(token => console.log(token))
-			.catch(err => console.log(err));
+
+			const passToken = jwt.sign({ email }, 'password-recover'); //Token for password recovery
 			
-			const transporter = nodemailer.createTransport(options);
-			// send mail with defined transport object
-			transporter.sendMail(mailOptions, (error, info) => {
-				if (error) {	
-					return res.json({msg: 'Something went wrong', status: false});
-				}
-				res.json({msg: 'Email has been sent successfully to '+email, status: true});
-				
-			});
+			PasswordRecovery.find({email})
+				.then(foundEmail => {
+					if(foundEmail.length <= 3) {
+						PasswordRecovery.create({
+							email: email,
+							token: passToken
+						}).then(token => {
+							const transporter = nodemailer.createTransport(options);
+							// send mail with defined transport object
+							transporter.sendMail(mailOptions, (error, info) => {
+								if (error) {	
+									return res.json({msg: 'Something went wrong', status: false});
+								}
+								res.json({msg: 'Email has been sent successfully to '+email, status: true});	
+							});
+						})
+						.catch(err => console.log(err));
+					} else {
+						return res.json({msg: 'Too mutch attampt to recover your password', status: true});
+					}
+				})
+				.catch(err => console.error(err));
 			
+			}
 		})
 		.catch(err => res.json({msg: 'Email hasn\'t been found', status: false}));
 	
