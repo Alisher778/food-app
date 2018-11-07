@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Link, Route, Switch, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { FiMail, FiLock } from "react-icons/fi";
 import axios from 'axios';
@@ -83,7 +83,12 @@ class SignIn extends Component{
                             />
                         </div>
                         <button>Sign In</button>
+                        <div className="extra-auth-links">
+                            <Link to="/sign-up">Sign up</Link>
+                            <Link to="/forgot-password">Recover Password</Link>
+                        </div>
                     </form>
+                    
                 </div>
             </section>
         )

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Link, Route, Switch, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { FiMail, FiLock, FiUser } from "react-icons/fi";
 import axios from 'axios';
@@ -57,7 +57,12 @@ class SignUp extends Component{
             .catch(err => console.log(err))
     }
     render() {
-        console.log(this.state)
+        let errorMsg = [];
+        if(Array.isArray(this.state.msg)) {
+            this.state.msg.forEach((item,i) => errorMsg.push(<li key={i}>{item}</li>))
+        } else {
+            errorMsg = this.state.msg;
+        }
         return(
             <section>
                 <div className="sec-container">
@@ -70,7 +75,7 @@ class SignUp extends Component{
                         <p><strong><em>Gordon Ramsay</em></strong></p>
                     </div>
                     <form action="" onSubmit={this.formHandler} id="sign-in-form">
-                        <div className={`alert-msg ${this.state.msgType}`}><p>{this.state.msg}</p></div>
+                        <div className={`alert-msg ${this.state.msgType}`}><p>{errorMsg}</p></div>
                         <h3>Sign Up</h3>
                         <div>
                             <FiUser />
@@ -103,6 +108,9 @@ class SignUp extends Component{
                             />
                         </div>
                         <button>Sign Up</button>
+                        <div className="extra-auth-links">
+                            Do you have an account already?<Link to="/sign-in">Sign In</Link>
+                        </div>
                     </form>
                 </div>
             </section>

@@ -286,7 +286,7 @@ router.post('/forgot-password', (req, res) => {
 			
 			} else {
 				// if no data found with email
-				return res.json({msg: "No user account exist with "+email, status: false, msgType: 'success'})
+				return res.json({msg: "No user account exist with "+email, status: false, msgType: 'danger'})
 			}
 		})
 		.catch(err => res.json({msg: 'Something went worng', status: false, error: err.message, msgType: 'danger'}));

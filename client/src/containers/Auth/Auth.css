@@ -55,6 +55,19 @@
     font-size: 17px;
     margin-top: 12px;
     padding: 0;
+    cursor: pointer;
+}
+#sign-in-form .extra-auth-links, #sign-up-form .extra-auth-links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+}
+.extra-auth-links a {
+    color: #055872;
+    text-decoration: none;
+    font-size: 14px;
 }
 .alert-msg.danger {
     color: #ff0000;
@@ -62,7 +75,7 @@
     border-radius: 4px;
 }
 .alert-msg.success {
-    color: #00ff95;
+    color: rgba(0, 198, 55, 0.73);
     background: rgba(182, 243, 220, 0.14);
     border-radius: 4px;
 }
@@ -73,3 +86,9 @@
 }
 .alert-msg p:empty{padding: 0;}
 .alert-msg p{margin: 0;  padding: 8px;}
+
+@media screen and (max-width: 768px) {
+    .sec-container{flex-direction: column;}
+    .col-left{display: none;}
+    #sign-in-form, #sign-up-form{width: 100%;}
+}

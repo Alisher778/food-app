@@ -1,4 +1,19 @@
-@import url("https://fonts.googleapis.com/css?family=Raleway:700");
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro|Raleway:700");
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Raleway", sans-serif;
+}
+
 #sign-in-page {
   min-width: 100vw;
   min-height: 100vh;
@@ -136,20 +151,6 @@ header #auth-links #sign-in-btn {
 header #auth-links #sign-up-btn {
   background-color: #e6262e;
   border-color: #e6262e;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body,
-html {
-  padding: 0;
-  margin: 0;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Raleway", sans-serif;
 }
 
 section {

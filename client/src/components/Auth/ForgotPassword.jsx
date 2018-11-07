@@ -35,7 +35,7 @@ class ForgotPassword extends Component{
                         <img src={chef} alt=""/>
                         <h3>Do you love cooking?</h3>
                         <p>
-                        If you want to become a great chef, you have to work with great chefs. And that's exactly what I did.
+                            If you want to become a great chef, you have to work with great chefs. And that's exactly what I did.
                         </p>
                         <p><strong><em>Gordon Ramsay</em></strong></p>
                     </div>
