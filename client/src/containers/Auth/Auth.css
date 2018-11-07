@@ -56,3 +56,10 @@
     margin-top: 12px;
     padding: 0;
 }
+.alert-msg {
+    color: #ff0000;
+    background: rgba(255, 192, 203, 0.14);
+    border-radius: 4px;
+}
+.alert-msg p:empty{padding: 0;}
+.alert-msg p{margin: 0;  padding: 8px;}

@@ -8,7 +8,7 @@ import chef from '../../assets/img/chef-green.png';
 class SignIn extends Component{
     constructor() {
         super();
-        this.state = {email: '', password: '', name: ''}
+        this.state = {email: '', password: '', name: '', msg: '', msgType: ''};
     }
 
     emailHandler = (e) => {
@@ -25,7 +25,7 @@ class SignIn extends Component{
             .then(res => {
                 const {userToken, userId, userName, isLogged} = res.data;
                     if(isLogged && userToken) {
-                        window.localStorage.setItem('token', JSON.stringify(res.data.userToken))
+                        window.localStorage.setItem('token', JSON.stringify(res.data.userToken));
                         this.setState({
                             authenticated: isLogged,
                             isLogged: isLogged,
@@ -39,6 +39,8 @@ class SignIn extends Component{
                         });
                         this.props.signIn(this.state);
                         this.props.history.push('/');
+                    } else {
+                        this.setState({msg: res.data.msg, msgType: 'danger'});
                     }
                 
             })
@@ -57,6 +59,7 @@ class SignIn extends Component{
                         <p><strong><em>Gordon Ramsay</em></strong></p>
                     </div>
                     <form action="" onSubmit={this.formHandler} id="sign-in-form">
+                        <div className={`alert-msg {this.state.msgType}`}><p>{this.state.msg}</p></div>
                         <h3>Sign In</h3>
                         <div>
                             <FiMail />

@@ -223,6 +223,11 @@ router.post("/logout", (req, res) => {
 });
 
 router.post('/forgot-password', (req, res) => {
+	/*
+		1. Find a Restaurant with Email
+			+ 
+		2. Find Recovery Email
+	*/ 
 	const {email} = req.body;
 	// SMTP option
 	let options = {
@@ -267,14 +272,17 @@ router.post('/forgot-password', (req, res) => {
 						})
 						.catch(err => console.log(err));
 					} else {
-						return res.json({msg: 'Too mutch attampt to recover your password', status: true});
+						return res.json({msg: 'Too mutch attampt to recover your password. Try later', status: true});
 					}
 				})
 				.catch(err => console.error(err));
 			
+			} else {
+				// if no data found with email
+				return res.json({msg: "No user account exist with"+email, status: false})
 			}
 		})
-		.catch(err => res.json({msg: 'Email hasn\'t been found', status: false}));
+		.catch(err => res.json({msg: 'Something went worng', status: false, error: err.message}));
 	
 	
 });

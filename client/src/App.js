@@ -11,6 +11,7 @@ import Contact from './components/Contact/Contact.jsx';
 import AuthError from './components/Auth/AuthError.jsx';
 import SignIn from './containers/Auth/SignIn';
 import SignUp from './containers/Auth/SignUp';
+import ForgotPassword from './containers/Auth/ForgotPassword';
 
 
 class App extends Component {
@@ -82,6 +83,7 @@ class App extends Component {
                         <Route path="/" exact component={Home} />
                         <Route path="/sign-in" exact component={SignIn} />
                         <Route path="/sign-up" exact component={SignUp} />
+                        <Route path="/forgot-password" exact component={ForgotPassword} />
                         {authRoutes()}
                     </Switch>
                 </main>
