@@ -56,9 +56,19 @@
     margin-top: 12px;
     padding: 0;
 }
-.alert-msg {
+.alert-msg.danger {
     color: #ff0000;
     background: rgba(255, 192, 203, 0.14);
+    border-radius: 4px;
+}
+.alert-msg.success {
+    color: #00ff95;
+    background: rgba(182, 243, 220, 0.14);
+    border-radius: 4px;
+}
+.alert-msg.warning {
+    color: hsl(44, 100%, 50%);
+    background: rgba(243, 217, 182, 0.14);
     border-radius: 4px;
 }
 .alert-msg p:empty{padding: 0;}

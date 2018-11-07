@@ -51,24 +51,31 @@ router.post("/", (req, res) => {
 					req.session.isLogged = true;
 					res.json({
 						msg: "Your account has been Successfully created",
+						msgType: 'success',
 						isLogged: true,
 						userName: data.email,
 						userId: data._id,
 						userToken: token
 					});
 				})
-				.catch(err =>
+				.catch(err => {
+					const msgArr = err.message.split(',');
+					let msgFiltr = [];
+					msgArr.forEach((msg) => msgFiltr.push(msg.slice(msg.indexOf('%')+1)));
+					console.log(msgFiltr)
 					res.json({
-						msg: err.message,
+						msg: msgFiltr,
+						msgType: 'danger',
 						isLogged: false,
 						userName: null,
 						userId: null,
 						userToken: null
 					})
-				);
+				});
 		} else {
 			res.json({
 				msg: "A user with this email address is exist. Choose another email!",
+				msgType: 'danger',
 				isLogged: false,
 				userName: null,
 				userId: null,
@@ -265,24 +272,24 @@ router.post('/forgot-password', (req, res) => {
 							// send mail with defined transport object
 							transporter.sendMail(mailOptions, (error, info) => {
 								if (error) {	
-									return res.json({msg: 'Something went wrong', status: false});
+									return res.json({msg: 'Something went wrong', status: false, msgType: 'danger'});
 								}
-								res.json({msg: 'Email has been sent successfully to '+email, status: true});	
+								res.json({msg: 'Email has been sent successfully to '+email, status: true, msgType: 'success'});	
 							});
 						})
 						.catch(err => console.log(err));
 					} else {
-						return res.json({msg: 'Too mutch attampt to recover your password. Try later', status: true});
+						return res.json({msg: 'Too mutch attampt to recover your password. Try later', status: true, msgType: 'warning'});
 					}
 				})
 				.catch(err => console.error(err));
 			
 			} else {
 				// if no data found with email
-				return res.json({msg: "No user account exist with"+email, status: false})
+				return res.json({msg: "No user account exist with "+email, status: false, msgType: 'success'})
 			}
 		})
-		.catch(err => res.json({msg: 'Something went worng', status: false, error: err.message}));
+		.catch(err => res.json({msg: 'Something went worng', status: false, error: err.message, msgType: 'danger'}));
 	
 	
 });

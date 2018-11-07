@@ -11,7 +11,7 @@ import Contact from './components/Contact/Contact.jsx';
 import AuthError from './components/Auth/AuthError.jsx';
 import SignIn from './containers/Auth/SignIn';
 import SignUp from './containers/Auth/SignUp';
-import ForgotPassword from './containers/Auth/ForgotPassword';
+import ForgotPassword from './components/Auth/ForgotPassword';
 
 
 class App extends Component {

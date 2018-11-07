@@ -9,7 +9,7 @@ import chef from '../../assets/img/chef-green.png';
 class SignUp extends Component{
     constructor() {
         super();
-        this.state = {email: '', password: '', name: ''}
+        this.state = {email: '', password: '', name: '', msg: '', msgType: ''}
     }
 
     nameHandler = (e) => {
@@ -48,7 +48,10 @@ class SignUp extends Component{
                         });
                         this.props.signUp(this.state);
                         this.props.history.push('/')
+                    } else {
+                        this.setState({msg: res.data.msg, msgType: res.data.msgType});
                     }
+                    
                 
             })
             .catch(err => console.log(err))
@@ -67,6 +70,7 @@ class SignUp extends Component{
                         <p><strong><em>Gordon Ramsay</em></strong></p>
                     </div>
                     <form action="" onSubmit={this.formHandler} id="sign-in-form">
+                        <div className={`alert-msg ${this.state.msgType}`}><p>{this.state.msg}</p></div>
                         <h3>Sign Up</h3>
                         <div>
                             <FiUser />

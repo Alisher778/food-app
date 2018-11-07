@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import { FiMail, FiLock } from "react-icons/fi";
 import axios from 'axios';
 import chef from '../../assets/img/chef-green.png';
+import './Auth.css';
 
 class SignIn extends Component{
     constructor() {
@@ -59,7 +60,7 @@ class SignIn extends Component{
                         <p><strong><em>Gordon Ramsay</em></strong></p>
                     </div>
                     <form action="" onSubmit={this.formHandler} id="sign-in-form">
-                        <div className={`alert-msg {this.state.msgType}`}><p>{this.state.msg}</p></div>
+                        <div className={`alert-msg ${this.state.msgType}`}><p>{this.state.msg}</p></div>
                         <h3>Sign In</h3>
                         <div>
                             <FiMail />
