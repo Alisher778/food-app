@@ -16,6 +16,10 @@ class ResetPassword extends Component{
         const email = e.target.value;
         this.setState({ email });
     }
+    emailHandler = (e) => {
+        const email = e.target.value;
+        this.setState({ email });
+    }
     
     formHandler = (e) => {
         e.preventDefault();
