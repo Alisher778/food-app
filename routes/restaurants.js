@@ -230,11 +230,7 @@ router.post("/logout", (req, res) => {
 });
 
 router.post('/forgot-password', (req, res) => {
-	/*
-		1. Find a Restaurant with Email
-			+ 
-		2. Find Recovery Email
-	*/ 
+	
 	const {email} = req.body;
 	// SMTP option
 	let options = {
@@ -258,6 +254,7 @@ router.post('/forgot-password', (req, res) => {
 								email: email,
 								token: passToken
 							}).then(token => {
+								res.json({msg: 'Email has been sent successfully to '+email, status: true, msgType: 'success'});
 								// setup email data with unicode symbols
 								const recoveryButton = `<a href="/api/restaurants/edit-password/${data._id}/${email}/${passToken}">Reset Your Password</a>`;
 								let mailOptions = {
@@ -273,7 +270,8 @@ router.post('/forgot-password', (req, res) => {
 									if (error) {	
 										return res.json({msg: 'Something went wrong', status: false, msgType: 'danger'});
 									}
-									res.json({msg: 'Email has been sent successfully to '+email, status: true, msgType: 'success'});	
+									//Due to it takes 2sec I moved to top
+									// res.json({msg: 'Email has been sent successfully to '+email, status: true, msgType: 'success'});
 								});
 							})
 							.catch(err => console.log(err));
