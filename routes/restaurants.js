@@ -250,39 +250,38 @@ router.post('/forgot-password', (req, res) => {
 	Restaurants.findOne({email})
 		.then(data => {
 			if(data) {
-					// setup email data with unicode symbols
-			let mailOptions = {
-				from: '"Foodifiy" <foodify@example.com>', // sender address
-				to: email, // list of receivers
-				subject: 'Sign In Request', // Subject line
-				text: 'Hello '+email, // plain text body
-				html: '<b>Hello world?</b>' // html body
-			};
-
-			const passToken = jwt.sign({ email }, 'password-recover'); //Token for password recovery
-			
-			PasswordRecovery.find({email})
-				.then(foundEmail => {
-					if(foundEmail.length <= 3) {
-						PasswordRecovery.create({
-							email: email,
-							token: passToken
-						}).then(token => {
-							const transporter = nodemailer.createTransport(options);
-							// send mail with defined transport object
-							transporter.sendMail(mailOptions, (error, info) => {
-								if (error) {	
-									return res.json({msg: 'Something went wrong', status: false, msgType: 'danger'});
-								}
-								res.json({msg: 'Email has been sent successfully to '+email, status: true, msgType: 'success'});	
-							});
-						})
-						.catch(err => console.log(err));
-					} else {
-						return res.json({msg: 'Too mutch attampt to recover your password. Try later', status: true, msgType: 'warning'});
-					}
-				})
-				.catch(err => console.error(err));
+				const passToken = jwt.sign({ email }, 'password-recover'); //Token for password recovery
+				PasswordRecovery.find({email})
+					.then(foundEmail => {
+						if(foundEmail.length <= 3) {
+							PasswordRecovery.create({
+								email: email,
+								token: passToken
+							}).then(token => {
+								// setup email data with unicode symbols
+								const recoveryButton = `<a href="/api/restaurants/edit-password/${data._id}/${email}/${passToken}">Reset Your Password</a>`;
+								let mailOptions = {
+									from: '"Foodifiy" <foodify@example.com>', // sender address
+									to: email, // list of receivers
+									subject: 'Sign In Request', // Subject line
+									text: 'Hello '+email, // plain text body
+									html: '<b>Hello world?</b>'+recoveryButton // html body
+								};
+								const transporter = nodemailer.createTransport(options);
+								// send mail with defined transport object
+								transporter.sendMail(mailOptions, (error, info) => {
+									if (error) {	
+										return res.json({msg: 'Something went wrong', status: false, msgType: 'danger'});
+									}
+									res.json({msg: 'Email has been sent successfully to '+email, status: true, msgType: 'success'});	
+								});
+							})
+							.catch(err => console.log(err));
+						} else {
+							return res.json({msg: 'Too mutch attampt to recover your password. Try later', status: true, msgType: 'warning'});
+						}
+					})
+					.catch(err => console.error(err));
 			
 			} else {
 				// if no data found with email
@@ -295,7 +294,7 @@ router.post('/forgot-password', (req, res) => {
 });
 
 // Update restaurant sign in password
-router.post("/edit-password/:id/:", (req, res) => {
+router.post("/edit-password/:id/:email/:token", (req, res) => {
 	Restaurants.findByIdAndUpdate(req.params.id, {
 		$set: req.body,
 		updatedAt: Date.now()
