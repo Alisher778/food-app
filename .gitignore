@@ -2,3 +2,4 @@ node_modules
 client/node_modules
 public/original-imgs
 design
+package-lock.json

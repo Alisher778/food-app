@@ -3,15 +3,19 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios from 'axios';
 
-import Navbar from './containers/Navbar/Nav.jsx';
+// ***********  Pages ****************** //
 import Home from './components/Home/Home.jsx'
 import Secret from './components/Secret/Secret.jsx';
 import Contact from './components/Contact/Contact.jsx';
+
 // ***********  AUTH Components ****************** //
 import AuthError from './components/Auth/AuthError.jsx';
+import ForgotPassword from './components/Auth/ForgotPassword';
+// ***********  AUTH Containers ****************** //
+import Navbar from './containers/Navbar/Nav.jsx';
+import ResetPassword from './components/Auth/ResetPasword.jsx';
 import SignIn from './containers/Auth/SignIn';
 import SignUp from './containers/Auth/SignUp';
-import ForgotPassword from './components/Auth/ForgotPassword';
 
 
 class App extends Component {
@@ -84,6 +88,7 @@ class App extends Component {
                         <Route path="/sign-in" exact component={SignIn} />
                         <Route path="/sign-up" exact component={SignUp} />
                         <Route path="/forgot-password" exact component={ForgotPassword} />
+                        <Route path="/reset-password/*" exact component={ResetPassword} />
                         {authRoutes()}
                     </Switch>
                 </main>

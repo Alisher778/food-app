@@ -7,4 +7,5 @@ const passRecoverySchema = new Schema({
 });
 passRecoverySchema.index({ createdAt: 1 }, { expireAfterSeconds : 1800 });
 const PasswordRecovery = mongoose.model('PasswordRecovery', passRecoverySchema);
+PasswordRecovery.createIndexes({email: 1});
 module.exports = PasswordRecovery;

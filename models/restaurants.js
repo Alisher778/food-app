@@ -18,6 +18,6 @@ const restaurantSchema = new Schema({
 	updatedAt: { type: Date, default: Date.now() },
 	token: String
 });
-
+restaurantSchema.index({email: 1});
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);
 module.exports = Restaurant;
