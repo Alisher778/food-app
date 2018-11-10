@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
-import { FiMail, FiLock } from "react-icons/fi";
+import { FiMail, FiLock, FiClock } from "react-icons/fi";
 import axios from 'axios';
 import chef from '../../assets/img/chef-green.png';
 import '../../containers/Auth/Auth.css';
@@ -9,14 +9,15 @@ import '../../containers/Auth/Auth.css';
 class ResetPassword extends Component{
     constructor(props) {
         super(props);
-        this.state = {password: '', msg: '', msgType: '', status: false};
+        this.state = {password: '', msg: '', msgType: '', status: false, redirectTime: 10000, timer: 10};
     }
 
     componentDidMount = () => {
         const {email, token} = this.props.match.params;
         axios.post('/api/restaurants/verify-password-reset', {email, token})
             .then(res => {
-                this.setState({status: res.data.status});
+                const {status, msg, msgType} = res.data;
+                this.setState({status, msg, msgType});
             }).catch(err => console.log(err));
     }
     emailHandler = (e) => {
@@ -32,11 +33,15 @@ class ResetPassword extends Component{
         e.preventDefault();
         axios.post('/api/restaurants/forgot-password', this.state)
             .then(res => {
-                    console.log(res.data.msgType);
-
                    this.setState({msg: res.data.msg, msgType: res.data.msgType});  
             })
             .catch(err => console.log(err))
+    }
+    redirectNow = () => {
+        // setTimeout(() => this.setState({timer: this.state.timer-1}), 990);
+        setTimeout(() => {
+            this.props.history.push('/');
+        },this.state.redirectTime);
     }
     render() {
         if(this.status){
@@ -80,7 +85,21 @@ class ResetPassword extends Component{
                 </section>
             );
         } else {
-            return <h1>You are not authorized to the page</h1>
+            return(
+                <section id="sign-in-sec">
+                    <div className="sec-container">
+                        <div className="col-left">
+                            <img src={chef} alt=""/>
+                            <h3>{this.state.status}</h3>
+                            <p>You will be redirected to the main page in 10's</p>
+                            {this.redirectNow()}
+                            <h4><FiClock /> {this.state.timer} sec remaining</h4>
+                            <p><strong><em>Foodify Team</em></strong></p>
+                        </div>
+                    </div>
+                </section>
+            
+            )
         }
        
     }
