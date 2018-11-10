@@ -292,6 +292,19 @@ router.post('/forgot-password', (req, res) => {
 });
 
 // Update restaurant sign in password
+router.post("/verify-password-reset", (req, res) => {
+	PasswordRecovery.find({email: req.body.email})
+		.then(foundEmail => {
+			const isValidToken = foundEmail.find(item => item.token === req.body.token);
+			if(isValidToken) {
+				res.json({msg: 'Reset your password now!', status: true, msgType: 'success'});
+			} else {
+				res.json({msg: 'You are not authorised to this page', status: false,  msgType: 'danger'});
+			}
+		})
+});
+
+// Update restaurant sign in password
 router.post("/edit-password/:id/:email/:token", (req, res) => {
 	Restaurants.findByIdAndUpdate(req.params.id, {
 		$set: req.body,
