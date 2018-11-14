@@ -38,13 +38,14 @@ class ResetPassword extends Component{
             .catch(err => console.log(err))
     }
     redirectNow = () => {
-        // setTimeout(() => this.setState({timer: this.state.timer-1}), 990);
         setTimeout(() => {
             this.props.history.push('/');
         },this.state.redirectTime);
     }
+
     render() {
-        if(this.status){
+        console.log(this.state)
+        if(this.state.status){
             return(
                 <section id="sign-in-sec">
                     <div className="sec-container">
@@ -93,7 +94,6 @@ class ResetPassword extends Component{
                             <h3>{this.state.status}</h3>
                             <p>You will be redirected to the main page in 10's</p>
                             {this.redirectNow()}
-                            <h4><FiClock /> {this.state.timer} sec remaining</h4>
                             <p><strong><em>Foodify Team</em></strong></p>
                         </div>
                     </div>

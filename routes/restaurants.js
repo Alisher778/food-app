@@ -256,7 +256,7 @@ router.post('/forgot-password', (req, res) => {
 							}).then(token => {
 								res.json({msg: 'Email has been sent successfully to '+email, status: true, msgType: 'success'});
 								// setup email data with unicode symbols
-								const recoveryButton = `<a href="/api/restaurants/edit-password/${data._id}/${email}/${passToken}">Reset Your Password</a>`;
+								const recoveryButton = `<a href="http://localhost:3000/reset-password/${email}/${passToken}">Reset Your Password</a>`;
 								let mailOptions = {
 									from: '"Foodifiy" <foodify@example.com>', // sender address
 									to: email, // list of receivers
@@ -268,8 +268,10 @@ router.post('/forgot-password', (req, res) => {
 								// send mail with defined transport object
 								transporter.sendMail(mailOptions, (error, info) => {
 									if (error) {	
-										return res.json({msg: 'Something went wrong', status: false, msgType: 'danger'});
+										return error;
+										// return res.json({msg: 'Something went wrong', status: false, msgType: 'danger'});
 									}
+									console.log('Message has been sent successfully');
 									//Due to it takes 2sec I moved to top
 									// res.json({msg: 'Email has been sent successfully to '+email, status: true, msgType: 'success'});
 								});
