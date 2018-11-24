@@ -9,7 +9,7 @@ import '../../containers/Auth/Auth.css';
 class ResetPassword extends Component{
     constructor(props) {
         super(props);
-        this.state = {password: '', msg: '', msgType: '', status: false, redirectTime: 10000, timer: 10};
+        this.state = {password: '', msg: '', msgType: '', status: false, redirectTime: 100000, timer: 10};
     }
 
     componentDidMount = () => {
@@ -44,10 +44,10 @@ class ResetPassword extends Component{
     }
 
     render() {
-        console.log(this.state)
+        console.log(this.state.status, this.state);
+        let resetPasswordUI = '';
         if(this.state.status){
-            return(
-                <section id="sign-in-sec">
+            return resetPasswordUI = (<section id="sign-in-sec">
                     <div className="sec-container">
                         <div className="col-left">
                             <img src={chef} alt=""/>
@@ -83,13 +83,12 @@ class ResetPassword extends Component{
                             <button>Sign In</button>
                         </form>
                     </div>
-                </section>
-            );
+                </section>)
         } else {
-            return(
-                <section id="sign-in-sec">
+           return resetPasswordUI =  (<section id="sign-in-sec">
                     <div className="sec-container">
                         <div className="col-left">
+                        <div className={`alert-msg ${this.state.msgType}`}><h3>{this.state.msg}</h3></div>
                             <img src={chef} alt=""/>
                             <h3>{this.state.status}</h3>
                             <p>You will be redirected to the main page in 10's</p>
@@ -97,11 +96,9 @@ class ResetPassword extends Component{
                             <p><strong><em>Foodify Team</em></strong></p>
                         </div>
                     </div>
-                </section>
-            
-            )
+                </section>)
         }
-       
+        return resetPasswordUI;
     }
 }
 
