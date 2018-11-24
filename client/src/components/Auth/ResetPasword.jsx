@@ -9,7 +9,7 @@ import '../../containers/Auth/Auth.css';
 class ResetPassword extends Component{
     constructor(props) {
         super(props);
-        this.state = {password: '', msg: '', msgType: '', status: false, redirectTime: 100000, timer: 10};
+        this.state = {password: '', msg: '', msgType: '', status: false, redirectTime: 5000, timer: 10};
     }
 
     componentDidMount = () => {
@@ -31,20 +31,23 @@ class ResetPassword extends Component{
     
     formHandler = (e) => {
         e.preventDefault();
-        axios.post('/api/restaurants/forgot-password', this.state)
+        const {email, token} = this.props.match.params;
+        axios.post(`/api/restaurants/edit-password/${email}/${token}`, this.state)
             .then(res => {
                    this.setState({msg: res.data.msg, msgType: res.data.msgType});  
             })
             .catch(err => console.log(err))
     }
     redirectNow = () => {
-        setTimeout(() => {
-            this.props.history.push('/');
-        },this.state.redirectTime);
+        if(this.state.status) {
+            setTimeout(() => {
+                this.props.history.push('/');
+            },this.state.redirectTime);
+        }
     }
 
     render() {
-        console.log(this.state.status, this.state);
+        console.log(this.props);
         let resetPasswordUI = '';
         if(this.state.status){
             return resetPasswordUI = (<section id="sign-in-sec">

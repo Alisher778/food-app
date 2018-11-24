@@ -307,8 +307,8 @@ router.post("/verify-password-reset", (req, res) => {
 });
 
 // Update restaurant sign in password
-router.post("/edit-password/:id/:email/:token", (req, res) => {
-	Restaurants.findByIdAndUpdate(req.params.id, {
+router.post("/edit-password/:email/:token", (req, res) => {
+	Restaurants.findOneAndUpdate({email: req.params.email}, {
 		$set: req.body,
 		updatedAt: Date.now()
 	})
