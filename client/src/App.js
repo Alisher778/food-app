@@ -55,7 +55,6 @@ class App extends Component {
                         });
                         this.props.verifyToken(this.state);
                     }
-                    
                 })
                 .catch(err => console.log(err));
         }

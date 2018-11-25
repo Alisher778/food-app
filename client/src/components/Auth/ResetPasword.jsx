@@ -9,7 +9,7 @@ import '../../containers/Auth/Auth.css';
 class ResetPassword extends Component{
     constructor(props) {
         super(props);
-        this.state = {password: '', msg: '', msgType: '', status: false, redirectTime: 5000, timer: 10};
+        this.state = {password: '', confirmPassword: '', msg: '', msgType: '', status: false, redirectTime: 5000, timer: 10};
     }
 
     componentDidMount = () => {
@@ -20,23 +20,29 @@ class ResetPassword extends Component{
                 this.setState({status, msg, msgType});
             }).catch(err => console.log(err));
     }
-    emailHandler = (e) => {
-        const email = e.target.value;
-        this.setState({ email });
+    passwordHandler = (e) => {
+        const password = e.target.value;
+        this.setState({ password });
     }
-    emailHandler = (e) => {
-        const email = e.target.value;
-        this.setState({ email });
+    confirmPasswordHandler = (e) => {
+        const confirmPassword = e.target.value;
+        this.setState({ confirmPassword });
     }
     
     formHandler = (e) => {
         e.preventDefault();
         const {email, token} = this.props.match.params;
-        axios.post(`/api/restaurants/edit-password/${email}/${token}`, this.state)
+        const {password, confirmPassword} = this.state;
+        if(password === confirmPassword) {
+            axios.post(`/api/restaurants/edit-password/${email}/${token}`, {password: this.state.password})
             .then(res => {
-                   this.setState({msg: res.data.msg, msgType: res.data.msgType});  
+                this.setState({msg: res.data.msg, msgType: res.data.msgType, status: true}); 
             })
             .catch(err => console.log(err))
+        } else {
+            this.setState({msg: "Password doesn't match", msgType: 'danger'})
+        }
+       
     }
     redirectNow = () => {
         if(this.state.status) {
@@ -47,7 +53,7 @@ class ResetPassword extends Component{
     }
 
     render() {
-        console.log(this.props);
+        console.log(this.props, this.state);
         let resetPasswordUI = '';
         if(this.state.status){
             return resetPasswordUI = (<section id="sign-in-sec">
