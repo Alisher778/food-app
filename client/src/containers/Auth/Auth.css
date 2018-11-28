@@ -90,5 +90,6 @@
 @media screen and (max-width: 768px) {
     .sec-container{flex-direction: column;}
     .col-left{display: none;}
+    .col-left.failed{display: block; width: 100%}
     #sign-in-form, #sign-up-form{width: 100%;}
 }

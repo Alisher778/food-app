@@ -308,13 +308,28 @@ router.post("/verify-password-reset", (req, res) => {
 
 // Update restaurant sign in password
 router.post("/edit-password/:email/:token", (req, res) => {
+	const salt = bcrypt.genSaltSync(10);
+	const passwordHash = bcrypt.hashSync(req.body.password, salt);
 	Restaurants.findOneAndUpdate({email: req.params.email}, {
 		$set: req.body,
+		password: passwordHash,
 		updatedAt: Date.now()
 	})
 		.then(() => {
-			Restaurants.find()
-				.then(data => res.json(data))
+			PasswordRecovery.find({email: req.params.email})
+				.then(data => {
+					res.json({
+						msg: "Successfully updated your password",
+						status: true,
+						msgType: 'success'
+					});
+					data.forEach(item => {
+						console.log(item)
+						PasswordRecovery.findByIdAndRemove(item._id).then(data => console.log('Removed')).catch(err => console.error(err));
+					})
+
+					console.log(data)
+			})
 				.catch(err => res.json(err.message));
 		})
 		.catch(err => res.send(err.message));

@@ -37,6 +37,11 @@ class ResetPassword extends Component{
             axios.post(`/api/restaurants/edit-password/${email}/${token}`, {password: this.state.password})
             .then(res => {
                 this.setState({msg: res.data.msg, msgType: res.data.msgType, status: true}); 
+                if(this.state.status) {
+                    setTimeout(() => {
+                        this.props.history.push('/');
+                    },2000);
+                }
             })
             .catch(err => console.log(err))
         } else {
@@ -96,7 +101,7 @@ class ResetPassword extends Component{
         } else {
            return resetPasswordUI =  (<section id="sign-in-sec">
                     <div className="sec-container">
-                        <div className="col-left">
+                        <div className="col-left failed">
                         <div className={`alert-msg ${this.state.msgType}`}><h3>{this.state.msg}</h3></div>
                             <img src={chef} alt=""/>
                             <h3>{this.state.status}</h3>
