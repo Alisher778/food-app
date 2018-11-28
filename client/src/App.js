@@ -16,6 +16,7 @@ import Navbar from './containers/Navbar/Nav.jsx';
 import ResetPassword from './components/Auth/ResetPasword.jsx';
 import SignIn from './containers/Auth/SignIn';
 import SignUp from './containers/Auth/SignUp';
+import UserProfil from './containers/Profile/Profile.jsx';
 
 
 class App extends Component {
@@ -68,6 +69,7 @@ class App extends Component {
                     <Switch>
                         <Route path="/about" exact component={Secret} />
                         <Route path="/contact" exact component={Contact} />
+                        <Route path="/profile" exact component={UserProfil}/>
                     </Switch>
                 );
             } else {
