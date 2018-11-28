@@ -21,6 +21,8 @@
     "morgan": "~1.7.0",
     "nodemailer": "^4.6.8",
     "react-icons": "^3.2.2",
+    "redux-localstorage": "^0.4.1",
+    "redux-persist": "^5.10.0",
     "redux-thunk": "^2.3.0",
     "serve-favicon": "~2.3.0",
     "session": "^0.1.0"
