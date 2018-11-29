@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
-import { FiMail, FiLock } from "react-icons/fi";
+import { FiMail } from "react-icons/fi";
 import axios from 'axios';
 import chef from '../../assets/img/chef-green.png';
 import '../../containers/Auth/Auth.css';

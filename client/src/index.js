@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import thunk from 'redux-thunk';
 import persistState from 'redux-localstorage';
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { createStore, compose, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import App from "./App";

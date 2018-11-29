@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Route, Switch, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { FiMail, FiLock } from "react-icons/fi";
 import axios from 'axios';
