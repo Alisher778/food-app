@@ -12,11 +12,10 @@ class Nav extends Component {
 
 	logOutHandler = (e) => {
         e.preventDefault();
-        console.log('clicked')
         axios.post('/api/restaurants/logout', {userId: this.props.authState.userId})
             .then(res => {
-                window.localStorage.removeItem('token');
-                window.location.href = '/'
+				this.props.logOut()
+                this.props.history.push('/');
             })
             .catch(err => console.log(err))
         
@@ -28,10 +27,6 @@ class Nav extends Component {
 		dropDownMenu.className = dropDownMenu.className?'':"mobile";
 	}
 
-	// navBarItemHandler = (e) => {
-	// 	const dropDownMenu = document.getElementById('main-links');
-	// 	dropDownMenu.className = dropDownMenu.className?'':"mobile";
-	// }
 	render() {
 
 		const {staticLinks, authLinks, logOutHandler} = this.props;
@@ -78,4 +73,9 @@ const mapStateToProps = state => {
     }
 }
 
-export default withRouter(connect(mapStateToProps)(Nav));
+const mappDistpatchToProrps = dispatch => {
+	return {
+		logOut: () => dispatch({type: 'SIGN_OUT'})
+	}
+}
+export default withRouter(connect(mapStateToProps, mappDistpatchToProrps)(Nav));

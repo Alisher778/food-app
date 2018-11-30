@@ -37,6 +37,8 @@ const verefiyToken = (state = initialState, action) => {
                 userName: data.userName,
                 userToken: data.userToken,
             }
+        case "SIGN_OUT": 
+            return initialState
        default:
        return state;
     }

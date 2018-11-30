@@ -36,10 +36,10 @@ class App extends Component {
     }
     
     componentDidMount() {
-        const userToken = window.localStorage.token;
+        const {userToken} = JSON.parse(localStorage.redux).authReducer;
 
         if(userToken && userToken !== '') {
-            axios.post('/api/restaurants/verify-token', {token: JSON.parse(localStorage.token)})
+            axios.post('/api/restaurants/verify-token', {token: userToken})
                 .then(res => {
                     const {userToken, userId, userName, isLogged} = res.data;
                     if(isLogged) {
