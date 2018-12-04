@@ -21,7 +21,7 @@ class AdminProfil extends Component {
     fileHandler = (e) => {
         e.preventDefault();
         console.log(e.target.files);
-
+        
     }
     componentDidMount = () => {
         console.log(this.props)
@@ -41,20 +41,20 @@ class AdminProfil extends Component {
                 <form>
                     <div className="">
                         <label htmlFor="restaurant name">Restaurant Name</label>
-                        <input type="text" defaultValue={this.state.name} name="name"/>
+                        <input type="text" defaultValue={this.state.name} name="name" onChange={this.inputHandler}/>
                     </div>
                     <div className="">
                         <label htmlFor="restaurant email">Email</label>
-                        <input type="email" defaultValue={this.state.email} name="email"/>
+                        <input type="email" defaultValue={this.state.email} name="email" onChange={this.inputHandler}/>
                     </div>
                     <div className="">
                         <label htmlFor="restaurant phone">Phone</label>
-                        <input type="text" defaultValue={this.state.phone} name="phone"/>
+                        <input type="text" defaultValue={this.state.phone} name="phone" onChange={this.inputHandler}/>
                     </div>
                     <div className="">
-                        <select name="type">
-                            <option value="Restaurant">Restaurant</option>
+                        <select name="type" value={this.state.type} onChange={this.inputHandler}>
                             <option value="Cafe">cafe</option>
+                            <option value="Restaurant">Restaurant</option>
                             <option value="Bar">Bar</option>
                             <option value="Choyxona">Choyxona</option>
                         </select>
