@@ -18,12 +18,24 @@ class AdminProfil extends Component {
         createdAt: Date.now(),
         updatedAt: Date.now(),
     }
+    fileHandler = (e) => {
+        e.preventDefault();
+        console.log(e.target.files);
+
+    }
     componentDidMount = () => {
         console.log(this.props)
         // axios.get('/api/users/')
     }
+    inputHandler = (e) => {
+        e.preventDefault();
+        const {name, value}  = e.target;
+
+        this.setState({[name]: value});
+
+    }
     render() {
-        console.log(this.props)
+        console.log(this.state)
         return(
             <section id="admin-profile">
                 <form>
@@ -47,6 +59,7 @@ class AdminProfil extends Component {
                             <option value="Choyxona">Choyxona</option>
                         </select>
                     </div>
+                    <input type="file" onChange={this.fileHandler}/>
                     <div className="">
                         <textarea name="info" id="" cols="30" rows="10">{this.state.info}</textarea>
                     </div>
