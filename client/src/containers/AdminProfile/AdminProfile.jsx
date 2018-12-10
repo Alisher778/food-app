@@ -65,6 +65,25 @@ class AdminProfil extends Component {
                     <div className="">
                         <textarea name="info" id="" cols="30" rows="10">{this.state.info}</textarea>
                     </div>
+                    <hr/>
+                    <h3>Admin Info</h3>
+                    <div className="">
+                        <label htmlFor="admin name">Admin Name</label>
+                        <input type="text" defaultValue={this.state.admin_name} name="admin_name" onChange={this.inputHandler}/>
+                    </div>
+                    <div className="">
+                        <label htmlFor="admin email">Admin Email</label>
+                        <input type="text" defaultValue={this.state.admin_email} name="admin_email" onChange={this.inputHandler}/>
+                    </div>
+                    <div className="">
+                        <label htmlFor="admin phone">Admin Phone</label>
+                        <input type="text" defaultValue={this.state.admin_phone} name="admin_phone" onChange={this.inputHandler}/>
+                    </div>
+                    <div className="">
+                        <label htmlFor="admin language">Admin Language</label>
+                        <input type="text" defaultValue={this.state.admin_lang} name="admin_lang" onChange={this.inputHandler}/>
+                    </div>
+                    <button>Save</button>
                 </form>
             </section>
         );
