@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import avatar from './chef.svg';
 
 class AdminProfil extends Component {
     state = {
@@ -39,6 +40,7 @@ class AdminProfil extends Component {
         return(
             <section id="admin-profile">
                 <form>
+                    <img src={avatar} alt="" id="admin-avatar"/>
                     <div className="">
                         <label htmlFor="restaurant name">Restaurant Name</label>
                         <input type="text" defaultValue={this.state.name} name="name" onChange={this.inputHandler}/>
