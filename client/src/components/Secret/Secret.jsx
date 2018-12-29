@@ -1,4 +1,7 @@
 import React from 'react';
+import TestComp from './TestComp';
+
+const TestContext = React.createContext('hey');
 
 class About extends React.Component {
     formHandler = (e) => {
@@ -11,21 +14,7 @@ class About extends React.Component {
         return(
             <section>
                 <h1>Secret Page Component</h1>
-                <form action="" onSubmit={this.formHandler}>
-                    <div>
-                        <label htmlFor="">Name</label>
-                        <input type="text" placeholder="Your Name" name="name"/>
-                    </div>
-                    <div>
-                        <label htmlFor="">Name</label>
-                        <input type="text" placeholder="YourEmail" name="email"/>
-                    </div>
-                    <div>
-                        <label htmlFor="">Name</label>
-                        <input type="text" placeholder="Your Number" name="phone"/>
-                    </div>
-                    <button>Send</button>
-                </form>
+                <TestComp />
             </section>
         );
     }

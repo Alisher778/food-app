@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import avatar from './chef.svg';
 
-class AdminProfil extends Component {
+class Form extends Component {
     state = {
         name: 'My restaurant',
         info: 'Cozy and finest',
@@ -90,5 +90,5 @@ class AdminProfil extends Component {
     }
 };
 
-export default AdminProfil;
+export default Form;
 
